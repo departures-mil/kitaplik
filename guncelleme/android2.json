@@ -1,0 +1,10 @@
+{
+  "version": "2.11.0",
+  "sha256": "ba1854d3ed5939f82f8916483059840973586b5703c0cd12e86d5227a54d8e12",
+  "signature": "MEUCIQCgpUz8BGeiIUnygwfioom8OdIU6gzGe0XubUcLlQzT6AIgUiWTY+VZY2UYoArmGt9Aq7B1ZGGi3youyYUQhHtWQSQ=",
+  "versionCode": 10,
+  "file": "android2-2.11.0.pkg",
+  "bytes": 6174535,
+  "notes": "2.11.0: Güncellemeler artık GitHub'dan geliyor. İndirirken yüzde, indirilen/toplam MB, kalan MB, hız ve kalan süre görünür (telefonda da). Kayıtlarınız olduğu gibi kalır.",
+  "publishedAt": "2026-11-21T20:13:57.563Z"
+}

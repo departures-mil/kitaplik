@@ -1,0 +1,9 @@
+{
+  "version": "2.11.0",
+  "sha256": "d15c66b0e722a4b924fa8e24b004ad2d96f4638f762cd4847e5ce270082187b3",
+  "signature": "MEQCIQDhxKPYiiiyUKRKf1093iZzC0303WY4DZ3QYSwbaC7AvwIfEnhQhhQAEflACQSJ6jzXVx5Zk451Cb0CeP59TjtHOA==",
+  "file": "masaustu2-2.11.0.pkg",
+  "bytes": 7983615,
+  "notes": "2.11.0: Güncellemeler artık GitHub'dan geliyor. İndirirken yüzde, indirilen/toplam MB, kalan MB, hız ve kalan süre görünür (telefonda da). Kayıtlarınız olduğu gibi kalır.",
+  "publishedAt": "2026-11-21T20:13:57.561Z"
+}

@@ -1,0 +1,9 @@
+{
+  "version": "2.11.0",
+  "sha256": "93eb2c8ec3b829f8c69a2a0f65581615b3f36aaababcec9a251828269b27f204",
+  "signature": "MEYCIQCd3UDsY+wcCqsddx7LGGKmQM3hV8Nzlkt1ijKpPV+GawIhAKFSvWOoRYRQMqkVEWnOxvlAdUuc+m/YxZqYfaQiCQhZ",
+  "file": "web-2.11.0.pkg",
+  "bytes": 7947964,
+  "notes": "2.11.0: Güncellemeler artık GitHub'dan geliyor. İndirirken yüzde, indirilen/toplam MB, kalan MB, hız ve kalan süre görünür (telefonda da). Kayıtlarınız olduğu gibi kalır.",
+  "publishedAt": "2026-11-21T20:13:57.557Z"
+}
