@@ -233,7 +233,9 @@ ipcMain.handle('post-json', (_e, url, json) => new Promise((resolve) => {
   const req = https.request(url, {
     method: 'POST',
     timeout: 20000,
-    headers: { 'Content-Type': 'application/json', Accept: 'application/json', 'Content-Length': Buffer.byteLength(json) },
+    // FormSubmit, Referer/Origin'siz isteği reddeder ve gönderen siteyi bir kez etkinleştirmeyi ister: etkin site gönderilir
+    headers: Object.assign({ 'Content-Type': 'application/json', Accept: 'application/json', 'Content-Length': Buffer.byteLength(json) },
+      /formsubmit\.co\//.test(url) ? { Referer: 'https://formsubmit.co/', Origin: 'https://formsubmit.co', 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) Kitaplik' } : {}),
   }, (res) => {
     let text = '';
     res.setEncoding('utf8');

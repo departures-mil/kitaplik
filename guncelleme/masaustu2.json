@@ -1,9 +1,9 @@
 {
-  "version": "2.12.0",
-  "sha256": "07f16bb7ceb674806e56baefd3e07f23f2371d3a5fd0cd44893404e67beda658",
-  "signature": "MEYCIQC/kgmNxAAe0zo456rlVtgooUsYTqPbt+K6bpFoASPLaAIhAMo2ebWuVhWSB6Y7xwsEPTZu2FvChQCAfeP5wNhkcMam",
-  "file": "masaustu2-2.12.0.pkg",
-  "bytes": 7999696,
-  "notes": "2.12.0: Ayarlar'a Kullanım Limitleri eklendi (kendi Firebase hesabınızın günlük okuma/yazma/silme kullanımı ve fotoğraftan okumadaki yapay zekâ kullanımı). Fotoğraftan okuma artık yalnızca sizin kendi Gemini anahtarınızla çalışır (⚙ Yapay zekâ anahtarı). Kayıtlarınız olduğu gibi kalır.",
-  "publishedAt": "2026-11-22T06:18:01.276Z"
+  "version": "2.12.1",
+  "sha256": "50f9941df4b4bbaecc596353aa27772ace06e5b7d87b2b06abdbe54c306f07b3",
+  "signature": "MEUCIQCPuIYHoi57ML3OF/rwoF/sxzKnq/pcSjCyuYxJLK/CowIgW5L4VjMdQoSf7X+FvsrDanU4tWYPi7g6ic61HAUNzOE=",
+  "file": "masaustu2-2.12.1.pkg",
+  "bytes": 8000379,
+  "notes": "2.12.1: «Admin ile iletişime geç» düzeltildi — mesajlarınız artık yöneticiye güvenilir biçimde ulaşıyor. Kayıtlarınız olduğu gibi kalır.",
+  "publishedAt": "2026-11-22T09:38:44.962Z"
 }
