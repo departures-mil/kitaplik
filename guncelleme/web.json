@@ -1,9 +1,9 @@
 {
-  "version": "2.12.0",
-  "sha256": "cf10303f7f2f6f95236ab2f9c1f801b98906c4897e90148d7ae7633ea3a6b6e0",
-  "signature": "MEUCIElbotiyAdncX8PLca/XC9lDx2cg2ZhHttluQs+srzFcAiEAyn2+l0Zv0q4RFfwI3XveRRdHohHuqIWWg5z1Iq4Gynw=",
-  "file": "web-2.12.0.pkg",
-  "bytes": 7964179,
-  "notes": "2.12.0: Ayarlar'a Kullanım Limitleri eklendi (kendi Firebase hesabınızın günlük okuma/yazma/silme kullanımı ve fotoğraftan okumadaki yapay zekâ kullanımı). Fotoğraftan okuma artık yalnızca sizin kendi Gemini anahtarınızla çalışır (⚙ Yapay zekâ anahtarı). Kayıtlarınız olduğu gibi kalır.",
-  "publishedAt": "2026-11-22T06:18:01.243Z"
+  "version": "2.12.1",
+  "sha256": "606a53262174658cc93ccc9fd37aa07024133acd65d7e0ce6a6b341f3a74f000",
+  "signature": "MEQCIFF286yHPYPmhEFKzbul6c9IvEyASdS/b13VsJp5TbleAiARU38QW79ELYaG/mU/a5bVVMIJlznla7Ueo7NfapOwLA==",
+  "file": "web-2.12.1.pkg",
+  "bytes": 7964672,
+  "notes": "2.12.1: «Admin ile iletişime geç» düzeltildi — mesajlarınız artık yöneticiye güvenilir biçimde ulaşıyor. Kayıtlarınız olduğu gibi kalır.",
+  "publishedAt": "2026-11-22T09:38:44.931Z"
 }
