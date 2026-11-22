@@ -1,9 +1,9 @@
 {
-  "version": "2.11.0",
-  "sha256": "d15c66b0e722a4b924fa8e24b004ad2d96f4638f762cd4847e5ce270082187b3",
-  "signature": "MEQCIQDhxKPYiiiyUKRKf1093iZzC0303WY4DZ3QYSwbaC7AvwIfEnhQhhQAEflACQSJ6jzXVx5Zk451Cb0CeP59TjtHOA==",
-  "file": "masaustu2-2.11.0.pkg",
-  "bytes": 7983615,
-  "notes": "2.11.0: Güncellemeler artık GitHub'dan geliyor. İndirirken yüzde, indirilen/toplam MB, kalan MB, hız ve kalan süre görünür (telefonda da). Kayıtlarınız olduğu gibi kalır.",
-  "publishedAt": "2026-11-21T20:13:57.561Z"
+  "version": "2.11.1",
+  "sha256": "d84b332cfc6a6f2a6f6c0a161a08dbf846d1d49888c6f9dd4f9d3aee5943dd11",
+  "signature": "MEYCIQDFS8wOEtXU5YISs69bxOXx83xxTbwOWIzZ950KCD4k+gIhAMEKGHOtykg3+FBNOz7FiMQQN1Zl9D9G4/yNCHbL2RDH",
+  "file": "masaustu2-2.11.1.pkg",
+  "bytes": 7988017,
+  "notes": "2.11.1: Admin duyuruları eklendi; yeni duyurular programda görünür, 🔔 düğmesinden okunur. Kayıtlarınız olduğu gibi kalır.",
+  "publishedAt": "2026-11-22T03:59:34.128Z"
 }
