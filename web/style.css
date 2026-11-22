@@ -264,3 +264,7 @@ body.has-win-tools .upd-banner{top:48px}
 @keyframes pfflash { from { filter: brightness(2.5); } to { filter: none; } }
 .pf-reread { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; padding: 8px; border-radius: 8px; background: #fff3e0; }
 .pf-chip { position: fixed; z-index: 45; left: 50%; transform: translateX(-50%); bottom: calc(150px + env(safe-area-inset-bottom)); border: 0; border-radius: 999px; padding: 10px 16px; background: #e65100; color: #fff; font-weight: 600; box-shadow: 0 2px 8px rgba(0,0,0,.3); cursor: pointer; max-width: calc(100vw - 32px); }
+
+/* dil seçici (sağ üst) */
+.tt-lang{width:auto;max-width:130px;flex:none;height:32px;border-radius:8px;border:1px solid rgba(0,0,0,.15);background:var(--card,#fff);color:inherit;font:inherit;font-size:13px;padding:0 6px;cursor:pointer}
+html[dir=rtl] body{direction:rtl}

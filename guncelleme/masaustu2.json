@@ -1,9 +1,9 @@
 {
-  "version": "2.12.1",
-  "sha256": "50f9941df4b4bbaecc596353aa27772ace06e5b7d87b2b06abdbe54c306f07b3",
-  "signature": "MEUCIQCPuIYHoi57ML3OF/rwoF/sxzKnq/pcSjCyuYxJLK/CowIgW5L4VjMdQoSf7X+FvsrDanU4tWYPi7g6ic61HAUNzOE=",
-  "file": "masaustu2-2.12.1.pkg",
-  "bytes": 8000379,
-  "notes": "2.12.1: «Admin ile iletişime geç» düzeltildi — mesajlarınız artık yöneticiye güvenilir biçimde ulaşıyor. Kayıtlarınız olduğu gibi kalır.",
-  "publishedAt": "2026-11-22T09:38:44.962Z"
+  "version": "2.13.0",
+  "sha256": "7d0ded5fb635accd1fa4251311b0c55cf66efe0e4cf1cb6a716b5c761aa2cc3d",
+  "signature": "MEUCIQCzUvfkEkbALsbn13wMGw1itKCNE4Q3CJ7/aAuaxaVvwQIgVQzw4HJWSI1w5Vo5llb6MfwS/ebtfEL2BxW+JYAESS8=",
+  "file": "masaustu2-2.13.0.pkg",
+  "bytes": 8015595,
+  "notes": "Arayüz artık Türkçe / English / العربية: sağ üstteki 🌐 düğmesinden dil seçilir, Arapçada sağdan sola yazılır.",
+  "publishedAt": "2026-11-22T13:27:17.699Z"
 }
