@@ -1,9 +1,9 @@
 {
-  "version": "2.12.1",
-  "sha256": "606a53262174658cc93ccc9fd37aa07024133acd65d7e0ce6a6b341f3a74f000",
-  "signature": "MEQCIFF286yHPYPmhEFKzbul6c9IvEyASdS/b13VsJp5TbleAiARU38QW79ELYaG/mU/a5bVVMIJlznla7Ueo7NfapOwLA==",
-  "file": "web-2.12.1.pkg",
-  "bytes": 7964672,
-  "notes": "2.12.1: «Admin ile iletişime geç» düzeltildi — mesajlarınız artık yöneticiye güvenilir biçimde ulaşıyor. Kayıtlarınız olduğu gibi kalır.",
-  "publishedAt": "2026-11-22T09:38:44.931Z"
+  "version": "2.13.0",
+  "sha256": "2c40db8e084dbffcf308893392a9dd0e41a3d03f06870aa29ab045704b94528f",
+  "signature": "MEUCIQDf6+/fJSMiUT9sCu/TWVsDfRcZT5W54nPYbFUqdKCAagIgYlNIgE517ef+ljxN3kYy/Tj4O9tYREcYSu5Crfgo8cc=",
+  "file": "web-2.13.0.pkg",
+  "bytes": 7980587,
+  "notes": "Arayüz artık Türkçe / English / العربية: sağ üstteki 🌐 düğmesinden dil seçilir, Arapçada sağdan sola yazılır.",
+  "publishedAt": "2026-11-22T13:27:17.666Z"
 }
