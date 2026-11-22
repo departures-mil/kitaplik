@@ -1,9 +1,9 @@
 {
-  "version": "2.11.1",
-  "sha256": "eb153b13a3cbf2ce2a45b2aeda815ebc079753820f492acc843473d075fe3b19",
-  "signature": "MEUCIQDmDRnM/0Cxj9x2qWxRYpm8lRqwS+oWWkyTbX+XmnlT/gIgXavJxU74xYoxfyen9BlSCss30hNapxeRt3x6XFhNl3E=",
-  "file": "web-2.11.1.pkg",
-  "bytes": 7953248,
-  "notes": "2.11.1: Admin duyuruları eklendi; yeni duyurular programda görünür, 🔔 düğmesinden okunur. Kayıtlarınız olduğu gibi kalır.",
-  "publishedAt": "2026-11-22T03:59:34.097Z"
+  "version": "2.12.0",
+  "sha256": "cf10303f7f2f6f95236ab2f9c1f801b98906c4897e90148d7ae7633ea3a6b6e0",
+  "signature": "MEUCIElbotiyAdncX8PLca/XC9lDx2cg2ZhHttluQs+srzFcAiEAyn2+l0Zv0q4RFfwI3XveRRdHohHuqIWWg5z1Iq4Gynw=",
+  "file": "web-2.12.0.pkg",
+  "bytes": 7964179,
+  "notes": "2.12.0: Ayarlar'a Kullanım Limitleri eklendi (kendi Firebase hesabınızın günlük okuma/yazma/silme kullanımı ve fotoğraftan okumadaki yapay zekâ kullanımı). Fotoğraftan okuma artık yalnızca sizin kendi Gemini anahtarınızla çalışır (⚙ Yapay zekâ anahtarı). Kayıtlarınız olduğu gibi kalır.",
+  "publishedAt": "2026-11-22T06:18:01.243Z"
 }
