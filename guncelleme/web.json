@@ -1,9 +1,9 @@
 {
-  "version": "2.11.0",
-  "sha256": "93eb2c8ec3b829f8c69a2a0f65581615b3f36aaababcec9a251828269b27f204",
-  "signature": "MEYCIQCd3UDsY+wcCqsddx7LGGKmQM3hV8Nzlkt1ijKpPV+GawIhAKFSvWOoRYRQMqkVEWnOxvlAdUuc+m/YxZqYfaQiCQhZ",
-  "file": "web-2.11.0.pkg",
-  "bytes": 7947964,
-  "notes": "2.11.0: Güncellemeler artık GitHub'dan geliyor. İndirirken yüzde, indirilen/toplam MB, kalan MB, hız ve kalan süre görünür (telefonda da). Kayıtlarınız olduğu gibi kalır.",
-  "publishedAt": "2026-11-21T20:13:57.557Z"
+  "version": "2.11.1",
+  "sha256": "eb153b13a3cbf2ce2a45b2aeda815ebc079753820f492acc843473d075fe3b19",
+  "signature": "MEUCIQDmDRnM/0Cxj9x2qWxRYpm8lRqwS+oWWkyTbX+XmnlT/gIgXavJxU74xYoxfyen9BlSCss30hNapxeRt3x6XFhNl3E=",
+  "file": "web-2.11.1.pkg",
+  "bytes": 7953248,
+  "notes": "2.11.1: Admin duyuruları eklendi; yeni duyurular programda görünür, 🔔 düğmesinden okunur. Kayıtlarınız olduğu gibi kalır.",
+  "publishedAt": "2026-11-22T03:59:34.097Z"
 }
