@@ -28,8 +28,8 @@
       nothing: 'Fotoğraflardan bilgi çıkarılamadı. Daha net/yakın bir fotoğraf deneyin.',
       offline: 'İnternet bağlantısı yok; fotoğraflar okunamadı.',
       aiFail: 'Yapay zekâ okuması yapılamadı: ',
-      key: 'Yapay zekâ anahtarı', keyAsk: 'Gemini API anahtarını girin (boş bırakılırsa varsayılan kullanılır):',
-      saved: 'Kaydedildi, sıradaki kitap için fotoğraf ekleyin.', noKey: 'yapay zekâ anahtarı henüz tanımlı değil (barkod/ISBN ile dolduruldu)', offPrep: 'İnternet yok — cihazda okunuyor (ilk seferde birkaç saniye sürer)…', offRead: function (i, n) { return 'Metin okunuyor (' + i + '/' + n + ')…'; }, offDone: function (n) { return n + ' alan internetsiz okundu. İnternet gelince yapay zekâyla yeniden okutabilirsiniz.'; }, aiDown: 'Yapay zekâya ulaşılamadı — cihazda okunuyor…', reread: '🔄 Yapay zekâyla yeniden oku', rereadInfo: 'Bu kitap internetsiz okundu; fotoğrafları bu cihazda saklı.', pending: function (n) { return '⏳ ' + n + ' kitap internetsiz okundu — yapay zekâyla oku'; }, batchDone: function (n) { return n + ' kitap yapay zekâyla yeniden okundu.'; }, batchStep: function (i, n) { return 'Yeniden okunuyor ' + i + '/' + n + '…'; }
+      key: 'Yapay zekâ anahtarı', keyAsk: 'Kendi Gemini API anahtarınızı girin (aistudio.google.com/apikey adresinden ücretsiz alınır; kullanım kendi hesabınızdan düşer):',
+      saved: 'Kaydedildi, sıradaki kitap için fotoğraf ekleyin.', noKey: 'kendi yapay zekâ anahtarınız tanımlı değil — ⚙ düğmesinden girin (barkod/ISBN ile dolduruldu)', offPrep: 'İnternet yok — cihazda okunuyor (ilk seferde birkaç saniye sürer)…', offRead: function (i, n) { return 'Metin okunuyor (' + i + '/' + n + ')…'; }, offDone: function (n) { return n + ' alan internetsiz okundu. İnternet gelince yapay zekâyla yeniden okutabilirsiniz.'; }, aiDown: 'Yapay zekâya ulaşılamadı — cihazda okunuyor…', reread: '🔄 Yapay zekâyla yeniden oku', rereadInfo: 'Bu kitap internetsiz okundu; fotoğrafları bu cihazda saklı.', pending: function (n) { return '⏳ ' + n + ' kitap internetsiz okundu — yapay zekâyla oku'; }, batchDone: function (n) { return n + ' kitap yapay zekâyla yeniden okundu.'; }, batchStep: function (i, n) { return 'Yeniden okunuyor ' + i + '/' + n + '…'; }
     },
     en: {
       legend: '📸 Quick add from photos',
@@ -46,8 +46,8 @@
       nothing: 'No information could be read. Try a sharper / closer photo.',
       offline: 'No internet connection; photos could not be read.',
       aiFail: 'AI reading failed: ',
-      key: 'AI key', keyAsk: 'Enter a Gemini API key (leave empty for the default):',
-      saved: 'Saved — add photos for the next book.', noKey: 'AI key not set yet (filled from barcode/ISBN)', offPrep: 'No internet — reading on the device (first time takes a few seconds)…', offRead: function (i, n) { return 'Reading text (' + i + '/' + n + ')…'; }, offDone: function (n) { return n + ' fields read offline. Re-read with AI when online.'; }, aiDown: 'AI unreachable — reading on the device…', reread: '🔄 Re-read with AI', rereadInfo: 'This book was read offline; its photos are kept on this device.', pending: function (n) { return '⏳ ' + n + ' book(s) read offline — read with AI'; }, batchDone: function (n) { return n + ' book(s) re-read with AI.'; }, batchStep: function (i, n) { return 'Re-reading ' + i + '/' + n + '…'; }
+      key: 'AI key', keyAsk: 'Enter your own Gemini API key (free at aistudio.google.com/apikey; usage counts against your own account):',
+      saved: 'Saved — add photos for the next book.', noKey: 'your own AI key is not set — enter it with ⚙ (filled from barcode/ISBN)', offPrep: 'No internet — reading on the device (first time takes a few seconds)…', offRead: function (i, n) { return 'Reading text (' + i + '/' + n + ')…'; }, offDone: function (n) { return n + ' fields read offline. Re-read with AI when online.'; }, aiDown: 'AI unreachable — reading on the device…', reread: '🔄 Re-read with AI', rereadInfo: 'This book was read offline; its photos are kept on this device.', pending: function (n) { return '⏳ ' + n + ' book(s) read offline — read with AI'; }, batchDone: function (n) { return n + ' book(s) re-read with AI.'; }, batchStep: function (i, n) { return 'Re-reading ' + i + '/' + n + '…'; }
     },
     ar: {
       legend: '📸 إضافة سريعة من الصور',
@@ -64,15 +64,15 @@
       nothing: 'تعذّر استخراج معلومات. جرّب صورة أوضح أو أقرب.',
       offline: 'لا يوجد اتصال بالإنترنت؛ تعذّرت قراءة الصور.',
       aiFail: 'تعذّرت القراءة بالذكاء الاصطناعي: ',
-      key: 'مفتاح الذكاء الاصطناعي', keyAsk: 'أدخل مفتاح Gemini API (اتركه فارغاً لاستخدام الافتراضي):',
-      saved: 'تم الحفظ — أضف صور الكتاب التالي.', noKey: 'مفتاح الذكاء الاصطناعي غير مُعرّف بعد', offPrep: 'لا يوجد إنترنت — تتم القراءة على الجهاز…', offRead: function (i, n) { return 'قراءة النص (' + i + '/' + n + ')…'; }, offDone: function (n) { return 'تمت قراءة ' + n + ' حقلاً دون إنترنت. أعد القراءة بالذكاء الاصطناعي عند الاتصال.'; }, aiDown: 'تعذّر الوصول إلى الذكاء الاصطناعي — تتم القراءة على الجهاز…', reread: '🔄 أعد القراءة بالذكاء الاصطناعي', rereadInfo: 'قُرئ هذا الكتاب دون إنترنت؛ صوره محفوظة على هذا الجهاز.', pending: function (n) { return '⏳ ' + n + ' كتاب قُرئ دون إنترنت — اقرأ بالذكاء الاصطناعي'; }, batchDone: function (n) { return 'أُعيدت قراءة ' + n + ' كتاب.'; }, batchStep: function (i, n) { return 'إعادة القراءة ' + i + '/' + n + '…'; }
+      key: 'مفتاح الذكاء الاصطناعي', keyAsk: 'أدخل مفتاح Gemini API الخاص بك (مجاني من aistudio.google.com/apikey؛ يُحتسب الاستخدام على حسابك):',
+      saved: 'تم الحفظ — أضف صور الكتاب التالي.', noKey: 'مفتاح الذكاء الاصطناعي الخاص بك غير مُعرّف — أدخله من زر ⚙', offPrep: 'لا يوجد إنترنت — تتم القراءة على الجهاز…', offRead: function (i, n) { return 'قراءة النص (' + i + '/' + n + ')…'; }, offDone: function (n) { return 'تمت قراءة ' + n + ' حقلاً دون إنترنت. أعد القراءة بالذكاء الاصطناعي عند الاتصال.'; }, aiDown: 'تعذّر الوصول إلى الذكاء الاصطناعي — تتم القراءة على الجهاز…', reread: '🔄 أعد القراءة بالذكاء الاصطناعي', rereadInfo: 'قُرئ هذا الكتاب دون إنترنت؛ صوره محفوظة على هذا الجهاز.', pending: function (n) { return '⏳ ' + n + ' كتاب قُرئ دون إنترنت — اقرأ بالذكاء الاصطناعي'; }, batchDone: function (n) { return 'أُعيدت قراءة ' + n + ' كتاب.'; }, batchStep: function (i, n) { return 'إعادة القراءة ' + i + '/' + n + '…'; }
     }
   }[LANG];
 
   // ---- Yapay zekâ ayarları ----
   var DEFAULT_KEY = '@GEMINI_KEY@';
   var MODELS = ['gemini-flash-latest', 'gemini-3.6-flash', 'gemini-flash-lite-latest', 'gemini-3.5-flash-lite'];
-  // Anahtar sırası: cihazda elle girilen → Firestore (kitapliklar/{kod}/ayarlar/yapayzeka.geminiKey) → paketteki.
+  // Anahtar sırası: cihazda elle girilen → kullanıcının kendi Firestore'u (kitapliklar/{kod}/ayarlar/yapayzeka.geminiKey). 2.12.0'dan beri pakette anahtar yok.
   var remoteKey = null;
   async function apiKey() {
     var k = '';

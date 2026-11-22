@@ -62,3 +62,7 @@ Android SDK: dl.google.com'dan build-tools_r35_linux.zip + platform-35_r02.zip �
 - 2.11.0 (APK versionCode 10): Güncellemeler GitHub'dan (departures-mil/kitaplik, guncelleme/*.json + *.pkg). Firebase artık
   yalnızca canlı kayıt eşitlemesi için. Android'de indirme ilerlemesi de yüzde + MB + kalan + hız + süre gösterir.
   2.11.0 eski kurulumlara geçiş için son kez Firestore kanallarına da yayınlandı. Yayın: tools/github-yayinla.sh.
+- 2.12.0: Ayarlar > Kullanım Limitleri (web/kullanim.js ortak istemci = departures-mil/duyurular/istemci/kullanim.js, web/kullanim-baslat.js).
+  Firestore SDK sayımı app.js içinde yamayla: onSnapshot (sunucudan gelen docChanges = okuma), toplu set/commit ve setDoc = yazma,
+  resource-exhausted = kota doldu. Gemini fetch'leri kendiliğinden sayılır. Yönetici Gemini anahtarı ARTIK PAKETE GÖMÜLMEZ
+  (derle.sh'tan kaldırıldı): herkes ⚙ ile kendi anahtarını girer ya da kendi Firestore'unda kitapliklar/{kod}/ayarlar/yapayzeka.geminiKey.

@@ -17,8 +17,7 @@ rm -rf "$B" "$OUT"; mkdir -p "$B" "$OUT"
 mkdir -p "$B/www"
 cp "$ROOT"/web/* "$B/www/"
 sed -i "s/@SURUM@/$SURUM/g" "$B/www/guncelleme.js"
-# Gemini anahtarı (fotoğraftan kayıt): keys/gemini.txt varsa pakete işlenir
-if [ -f "$ROOT/keys/gemini.txt" ]; then GK="$(tr -d ' \r\n' < "$ROOT/keys/gemini.txt")"; sed -i "s|@GEMINI_KEY@|$GK|" "$B/www/fotokayit.js"; fi
+# 2.12.0: Programa yönetici Gemini anahtarı GÖMÜLMEZ — herkes kendi anahtarını girer (yöneticinin kotası harcanmasın).
 
 # 2) Android APK  (APK_YOK=1 ile atlanır: yalnız web + masaüstü güncellemesi)
 if [ -z "${APK_YOK:-}" ]; then
