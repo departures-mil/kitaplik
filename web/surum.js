@@ -1,6 +1,6 @@
 /* OTOMATİK: node tools/surum.js (kaynak: package.json + release-notes.json). Elle düzenlemeyin. */
 window.APP_RELEASE = {
- "version": "2.14.0",
+ "version": "2.15.0",
  "notes": {
   "tr": "Yeni görünüm (Falcon şeması, renk şeması seçimi; eski renkler 'Klasik' olarak duruyor), Türkçe / English / العربية. Sağ üstte Eşitle, Wi‑Fi, Güncelle, tema ve dil; masaüstünde Küçült · Orta · Tam ekran · Kapat. Güncellemeler artık GitHub sürümlerinden tek tıkla gelir ve yalnızca değişen kısımlar indirilir (indirirken yüzde, MB, kalan ve hız görünür). Masaüstü kurulum programıyla gelir. Başka cihazda silinen kayıt artık bu cihazda silinmez, Ayarlar → Arşiv'e taşınır; çakışan değişiklikler yedeklenir. Ayarlar'ın sonunda Admin ile iletişim; Kullanım Limitleri, otomatik hata raporu, ilk açılış rehberi ve yazı boyutu eklendi. Kayıtlarınız olduğu gibi kalır.",
   "en": "New look (Falcon scheme with a colour-scheme picker; the previous colours remain as 'Classic'), Turkish / English / Arabic. Top right: Sync, Wi‑Fi, Update, theme and language; on desktop Minimise · Half · Full screen · Close. Updates now come from GitHub releases with one click and only the changed parts are downloaded (percentage, MB, remaining and speed are shown). The desktop version now has an installer. A record deleted on another device is no longer deleted here; it moves to Settings → Archive, and conflicting changes are backed up. Contact the admin is at the end of Settings; Usage limits, automatic error reports, a first-run guide and text size were added. Your records stay as they are.",

@@ -55,7 +55,7 @@ const shots = [
     page.on('console', (m) => { if (m.type() === 'error' && !/ERR_FAILED|net::|Failed to load/.test(m.text())) errors.push(s.name + ' console: ' + m.text()); });
     await page.addInitScript(({ s, data }) => {
       const set = (k, v) => localStorage.setItem('fc.' + k, JSON.stringify(v));
-      set('lang', s.lang); set('theme', s.theme); set('scheme', s.scheme); set('onboarding.done', true); set('whatsnew.seen', '2.14.0');
+      set('lang', s.lang); set('theme', s.theme); set('scheme', s.scheme); set('onboarding.done', true); set('whatsnew.seen', '2.15.0');
       localStorage.setItem('kitaplik.dil', s.lang);
       localStorage.setItem('kitaplik.v2', JSON.stringify(data));
       const st = { fullscreen: true, half: false };
