@@ -1,10 +1,10 @@
 {
-  "version": "2.15.1",
-  "sha256": "72f35ee9dd2600cfba554c186810cd582700487439ae1e63a0842d67f3bb6392",
-  "signature": "MEYCIQDU6iNxWJdWP0P0AM2HX09J97i1VXkSLA+d85/+YUR7oAIhAIbWN/Hc9PNsMGTAqwilMPtWro7jFOfzaABLf5b/Bph+",
-  "versionCode": 21501,
-  "file": "android2-2.15.1.pkg",
+  "version": "2.15.2",
+  "sha256": "03c96da96773a651755dd992bddbec064dc88ef281fd2332d0d2d841a552978f",
+  "signature": "MEYCIQCypbua6DeF5GPFulqtMEwW3Bb3Co1CN/NDX4xDwD7A/wIhAPrSwYOvPxiHFEmN8N/y+nNPtO1CvkoX4OaK59GSYBnV",
+  "versionCode": 21502,
+  "file": "android2-2.15.2.pkg",
   "bytes": 6716996,
-  "notes": "Kitaplık 2.15.1: sonraki güncellemeler GitHub sürümlerinden gelir, yalnızca değişen kısımlar indirilir. Kayıtlarınız korunur.\nTelefon (Android) sürümü artık her güncellemede otomatik yayınlanıyor; küçük düzeltmeler.",
-  "publishedAt": "2026-11-24T09:27:06.948Z"
+  "notes": "Kitaplık 2.15.2: sonraki güncellemeler GitHub sürümlerinden gelir, yalnızca değişen kısımlar indirilir. Kayıtlarınız korunur.\nArapça düzeltmeler: Ayarlar'daki Firebase yapılandırma kutusu soldan sağa yazılır; ödünç satırlarındaki \"Verildi / Teslim / İade\" artık çevriliyor.",
+  "publishedAt": "2026-11-24T15:34:46.285Z"
 }

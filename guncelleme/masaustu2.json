@@ -1,9 +1,9 @@
 {
-  "version": "2.15.1",
-  "sha256": "f959a8d8e30c943f10aacd21f22a5b0a8471780eea263ff6fc1cb8ab5c2b0b02",
-  "signature": "MEUCIQCO6JL2RNbZz7iv0XkY0gXdtU7RefpeCyv8YdKpDwy81wIgBFNSDiuEzMK3vx8mRyzGGf/5S83V1kIjVqT73CvxxWY=",
-  "file": "masaustu2-2.15.1.pkg",
-  "bytes": 8571626,
-  "notes": "Kitaplık 2.15.1 yeni kurulum programıyla gelir (GitHub Releases). Bu güncellemeden sonra program sizi tek tıkla yeni kuruluma götürür; kayıtlarınız korunur.\nTelefon (Android) sürümü artık her güncellemede otomatik yayınlanıyor; küçük düzeltmeler.",
-  "publishedAt": "2026-11-24T09:27:06.727Z"
+  "version": "2.15.2",
+  "sha256": "f3f576a55df038e855c7015df1f6410ab9a03af1432ee11ebe82084e0df22192",
+  "signature": "MEUCIQCT0WkKW79Qv5aLkRse+XowBV1nSeM8azWZ8AeCpny3cgIgUAn7uGA/TKL4f1X1hxMyzBQ+urK/X+1OTv2pzNdZauQ=",
+  "file": "masaustu2-2.15.2.pkg",
+  "bytes": 8572264,
+  "notes": "Kitaplık 2.15.2 yeni kurulum programıyla gelir (GitHub Releases). Bu güncellemeden sonra program sizi tek tıkla yeni kuruluma götürür; kayıtlarınız korunur.\nArapça düzeltmeler: Ayarlar'daki Firebase yapılandırma kutusu soldan sağa yazılır; ödünç satırlarındaki \"Verildi / Teslim / İade\" artık çevriliyor.",
+  "publishedAt": "2026-11-24T15:34:45.843Z"
 }
