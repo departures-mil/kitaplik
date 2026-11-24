@@ -27,7 +27,7 @@ test('tek semver sürüm: package.json = desktop/package.json = web/surum.js; ve
 });
 
 test('gömülü ortak çekirdek: sürüm kaydı, modüller, yerel düzeltmeler', () => {
-  for (const f of ['cekirdek/VERSION', 'web/cekirdek/VERSION']) assert.match(R(f), /^ortak-cekirdek 87f42f8ddb1d08d90c85d0296a694ee6138fff40\n/);
+  for (const f of ['cekirdek/VERSION', 'web/cekirdek/VERSION']) assert.match(R(f), /^ortak-cekirdek [0-9a-f]{40}\n/);
   assert.strictEqual(R('cekirdek/VERSION'), R('web/cekirdek/VERSION'));
   delete globalThis.FC;
   require('../web/cekirdek/fc-core.js');
@@ -47,7 +47,7 @@ test('gömülü ortak çekirdek: sürüm kaydı, modüller, yerel düzeltmeler',
   // yerel düzeltmeler (cekirdek/VERSION'da yazılı)
   assert.match(R('web/cekirdek/fc-core.js'), /typeof h\.update\.run === 'function'/, 'updater: kabuk-yerel güncelleme kancası');
   const em = R('cekirdek/electron/fc-electron-main.js');
-  assert.match(em, /function runSetup/); assert.match(em, /isSetup\(meta\)/); assert.match(R("cekirdek/VERSION"), /ebec004/); assert.match(em, /typeof net\.fetch === 'function'/); assert.match(em, /o\.show === false/);
+  assert.match(em, /function runSetup/); assert.match(em, /isSetup\(meta\)/); assert.ok(!/tasklist \/FI/.test(em), 'güncelleme penceresiz'); assert.match(em, /typeof net\.fetch === 'function'/); assert.match(em, /o\.show === false/);
   assert.ok(!/androidx/.test(R('android/src/com/departuresmil/ortak/ApkPatchInstaller.java').replace(/\/\/.*$/gm, '')), 'androidx gerekmez');
 });
 

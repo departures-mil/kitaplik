@@ -1,8 +1,5 @@
-ortak-cekirdek 87f42f8ddb1d08d90c85d0296a694ee6138fff40
-https://github.com/departures-mil/ortak-cekirdek/tree/87f42f8ddb1d08d90c85d0296a694ee6138fff40
+ortak-cekirdek f1d1d850614ee93560181e5a6b15100643b19e14
+https://github.com/departures-mil/ortak-cekirdek/tree/f1d1d850614ee93560181e5a6b15100643b19e14
 Kopyalanan: web/dist/fc-core.js, web/css, web/fonts → web/cekirdek/ · web/electron → cekirdek/electron/ · delta/java → android/src/com/departuresmil/ortak/
-Yerel düzeltmeler (çekirdeğe önerildi):
-- electron/fc-electron-main.js: ortak-cekirdek ebec004 sürümü (win-setup exe'si app.asar yerine yazılmaz, doğrulanıp çalıştırılır)
-  + yerel: net.fetch olmayan eski Electron'da https ile indirme; install({show:false}) tepside başlatır.
-- js/updater.js (dist/fc-core.js): FC.host.update.run(plan, ilerleme) varsa indirme+yama+kurulum kabukta (Android ApkPatchInstaller).
+Yerel düzeltmeler: yok (önceki yerel ekler çekirdeğe alındı).
 - delta/java/ApkPatchInstaller.java: androidx FileProvider yerine uygulamanın kendi ContentProvider adresi.
