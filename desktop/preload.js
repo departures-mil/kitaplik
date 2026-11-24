@@ -31,3 +31,11 @@ contextBridge.exposeInMainWorld('kitaplikDesktop', {
   lanHttp: lanAsync('lanHttp'),
   lanFind: lanAsync('lanFind'),
 });
+
+// Asistan Agent: aynı bilgisayardaki uygulamalarla sayaç paylaşımı (fc-agent-main.js)
+const fcAgentUnwrap = (p) => p.then((r) => { if (r && r.ok) return r.data; throw new Error((r && r.error) || 'ERR'); });
+contextBridge.exposeInMainWorld('fcAgentHost', {
+  read: () => fcAgentUnwrap(ipcRenderer.invoke('fc:agent:read')),
+  write: (key, json) => fcAgentUnwrap(ipcRenderer.invoke('fc:agent:write', key, json)),
+  remove: (key) => fcAgentUnwrap(ipcRenderer.invoke('fc:agent:remove', key))
+});
