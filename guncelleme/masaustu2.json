@@ -1,9 +1,9 @@
 {
-  "version": "2.13.0",
-  "sha256": "7d0ded5fb635accd1fa4251311b0c55cf66efe0e4cf1cb6a716b5c761aa2cc3d",
-  "signature": "MEUCIQCzUvfkEkbALsbn13wMGw1itKCNE4Q3CJ7/aAuaxaVvwQIgVQzw4HJWSI1w5Vo5llb6MfwS/ebtfEL2BxW+JYAESS8=",
-  "file": "masaustu2-2.13.0.pkg",
-  "bytes": 8015595,
-  "notes": "Arayüz artık Türkçe / English / العربية: sağ üstteki 🌐 düğmesinden dil seçilir, Arapçada sağdan sola yazılır.",
-  "publishedAt": "2026-11-22T13:27:17.699Z"
+  "version": "2.14.1",
+  "sha256": "6283edc2eabbed5d0ed4d6d0cdb986e363e784a04806b7c4825062a6eeb6164d",
+  "signature": "MEQCIHft+Q5XwFkLSetiJFqbWDwadsLKOUid+SJjMbgWKlZrAiADjNt+N4lnqfHMaJZO6z+CAj8PXMpwn4nRBZUle6ISTQ==",
+  "file": "masaustu2-2.14.1.pkg",
+  "bytes": 8081284,
+  "notes": "Asistan Agent iyileştirildi: yapay zeka önerileri güncel Gemini modeliyle, ayarlar kartı yerleşimi düzeltildi.",
+  "publishedAt": "2026-11-24T05:48:25.982Z"
 }

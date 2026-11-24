@@ -23,7 +23,7 @@ test('tek semver sürüm: package.json = desktop/package.json = web/surum.js; ve
   assert.strictEqual(surum.versionCode('2.14.0'), 21400);
   // eski güncelleyici karşılaştırması (desktop/main.js ≤2.13, Updater.java): yeni sürüm 2.13.0'dan "daha yeni" görünmeli
   const newer = (a, b) => { const x = a.split('.').map(Number), y = b.split('.').map(Number); for (let i = 0; i < 3; i++) if (x[i] !== y[i]) return x[i] > y[i]; return false; };
-  assert.ok(newer(pkg.version, '2.13.0'));
+  assert.ok(newer(pkg.version, '2.14.1'), 'eski kanallarda yayınlanan son sürüm 2.14.1');
 });
 
 test('gömülü ortak çekirdek: sürüm kaydı, modüller, yerel düzeltmeler', () => {

@@ -1,9 +1,9 @@
 {
-  "version": "2.13.0",
-  "sha256": "2c40db8e084dbffcf308893392a9dd0e41a3d03f06870aa29ab045704b94528f",
-  "signature": "MEUCIQDf6+/fJSMiUT9sCu/TWVsDfRcZT5W54nPYbFUqdKCAagIgYlNIgE517ef+ljxN3kYy/Tj4O9tYREcYSu5Crfgo8cc=",
-  "file": "web-2.13.0.pkg",
-  "bytes": 7980587,
-  "notes": "Arayüz artık Türkçe / English / العربية: sağ üstteki 🌐 düğmesinden dil seçilir, Arapçada sağdan sola yazılır.",
-  "publishedAt": "2026-11-22T13:27:17.666Z"
+  "version": "2.14.1",
+  "sha256": "4542fac7589d0bb3cc906d3be694e39422f3fc7a62f9e4cdc508c4beeb526190",
+  "signature": "MEQCIAOujqYphF0gcpL7cxxY99Sf2syqwc7SuD8N2UgPbV8rAiAaJXZVq8WTC783wT6FgeGEmZhs7obzdxts4QJdmsSeeA==",
+  "file": "web-2.14.1.pkg",
+  "bytes": 8045054,
+  "notes": "Asistan Agent iyileştirildi: yapay zeka önerileri güncel Gemini modeliyle, ayarlar kartı yerleşimi düzeltildi.",
+  "publishedAt": "2026-11-24T05:48:25.954Z"
 }

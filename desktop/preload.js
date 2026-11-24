@@ -30,3 +30,5 @@ contextBridge.exposeInMainWorld('kitaplikDesktop', {
   lanHttp: lanAsync('lanHttp'),
   lanFind: lanAsync('lanFind'),
 });
+
+// Asistan Agent paylaşımı: ortak çekirdekte (fc-preload.js → window.fcHost.agent; fc-electron-main.js fc:agent:*).

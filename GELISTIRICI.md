@@ -72,6 +72,13 @@ Yerel APK: `ANDROID_TOOLS=<sdk> bash tools/apk.sh` (keys/ varsa imzalar).
   Firestore SDK sayımı app.js içinde yamayla: onSnapshot (sunucudan gelen docChanges = okuma), toplu set/commit ve setDoc = yazma,
   resource-exhausted = kota doldu. Gemini fetch'leri kendiliğinden sayılır. Yönetici Gemini anahtarı ARTIK PAKETE GÖMÜLMEZ
   (derle.sh'tan kaldırıldı): herkes ⚙ ile kendi anahtarını girer ya da kendi Firestore'unda kitapliklar/{kod}/ayarlar/yapayzeka.geminiKey.
-- 2.14.0: ortak çekirdek (87f42f8): Falcon görünümü + şema seçici (eski renkler "klasik"), üst çubuk, GitHub Releases + delta yama
+- 2.14.0: ✦ Asistan Agent (ortak-cekirdek/web/dist/fc-agent.js + web/agent-baslat.js). Bütün uygulamalardaki çalışmayı sayılarla
+  izler (içerik yok), çevrim dışı kurallar + kullanıcının kendi Gemini anahtarıyla öneri; bildirim (KitaplikAndroid/kitaplikDesktop.notifyNow)
+  + sağ altta ✦ panel. Ayarlar'da "Yönetici ile İletişim"in önüne kart. Masaüstü: desktop/fc-agent-main.js + preload fcAgentHost
+  (%APPDATA%/FalconCekirdek/agent ile diğer programlarla paylaşım). Güncellemek: fc-agent.js'yi çekirdekten yeniden kopyala.
+- 2.14.1: fc-agent.js yenilendi (menü/yerleşim iyileştirmeleri, Gemini modeli gemini-flash-latest).
+- 2.15.0: ortak çekirdek (87f42f8 + ebec004): Falcon görünümü + şema seçici (eski renkler "klasik"), üst çubuk, GitHub Releases + delta yama
   (masaüstü app.asar, Android kurulu APK + yama → ApkPatchInstaller), NSIS kurulum, CI, uzak silme → arşiv, iletişim/çökme/kullanım
-  çekirdekten. Eski raw kanallar yalnız köprü (tools/kopru.js). versionCode = major*10000+minor*100+patch (21400).
+  çekirdekten. Eski raw kanallar yalnız köprü (tools/kopru.js). versionCode = major*10000+minor*100+patch (2.15.0 → 21500).
+  Asistan Agent artık çekirdekten (FC.agent; aynı fc.* kayıtları ve %APPDATA%/FalconCekirdek/agent) — fc-agent.js / agent-baslat.js /
+  fc-agent-main.js kaldırıldı.

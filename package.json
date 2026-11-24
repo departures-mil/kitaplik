@@ -1,7 +1,7 @@
 {
   "name": "kitaplik",
   "productName": "Kitaplık",
-  "version": "2.14.0",
+  "version": "2.15.0",
   "private": true,
   "description": "Kitaplık — kitap ve ödünç takibi (Windows masaüstü + Android). Geliştirme paketi; uygulama paketi desktop/package.json.",
   "author": "departures-mil",
