@@ -1,10 +1,10 @@
 /* OTOMATİK: node tools/surum.js (kaynak: package.json + release-notes.json). Elle düzenlemeyin. */
 window.APP_RELEASE = {
- "version": "2.15.2",
+ "version": "2.15.3",
  "notes": {
-  "tr": "Arapça düzeltmeler: Ayarlar'daki Firebase yapılandırma kutusu soldan sağa yazılır; ödünç satırlarındaki \"Verildi / Teslim / İade\" artık çevriliyor.",
-  "en": "Arabic fixes: the Firebase configuration box in Settings is written left to right; \"Lent / Due / Returned\" on loan rows are now translated.",
-  "ar": "إصلاحات للعربية: يُكتب مربع إعدادات Firebase في الإعدادات من اليسار إلى اليمين؛ وأصبحت عبارات «أُعير / موعد الإرجاع / أُعيد» في سطور الإعارة مترجمة."
+  "tr": "Güncellemeler artık tamamen kendiliğinden: yeni sürüm arka planda sessizce indirilir, program kapanınca pencere açmadan kurulur; bir sonraki açılışta yeni sürüm gelir. Hemen kurmak için Güncelle → «Şimdi kur ve yeniden aç». Kurulum gereken güncellemeler de sessiz yapılır. Kayıtlara dokunulmaz.",
+  "en": "Updates are now fully automatic: the new version downloads quietly in the background and installs without any window when the program closes; the next start opens the new version. To install right away: Update → «Install now and reopen». Updates that need the installer also run silently. Records are not touched.",
+  "ar": "أصبحت التحديثات تلقائية بالكامل: يُنزَّل الإصدار الجديد بهدوء في الخلفية ويُثبَّت دون أي نافذة عند إغلاق البرنامج، ويُفتح الإصدار الجديد في المرة التالية. للتثبيت فوراً: تحديث ← «ثبّت الآن وأعد الفتح». التحديثات التي تحتاج إلى برنامج التثبيت تتم بصمت أيضاً. لا تُمَسّ السجلات."
  }
 };
 window.KITAPLIK_SURUM = window.APP_RELEASE.version;
