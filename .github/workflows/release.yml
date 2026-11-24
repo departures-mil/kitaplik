@@ -134,6 +134,7 @@ jobs:
       version: ${{ needs.build-win.outputs.version }}
       file_prefix: Kitaplik
       release_title: Kitaplık v${{ needs.build-win.outputs.version }}
+      min_version: 2.15.3
       files: ${{ needs.build-android.outputs.files }}
       notes_json: release-notes.json
       core_ref: main
