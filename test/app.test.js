@@ -172,3 +172,15 @@ test('derleme klasörü eski başlatıcının beklediği düzende', () => {
   assert.ok(fs.existsSync(path.join(r.www, 'index.html')));
   fs.rmSync(tmp, { recursive: true, force: true });
 });
+
+test('2.15.2: Arapçada ödünç satırı çevrilir, firebaseConfig alanı soldan sağa', () => {
+  const vm = require('vm');
+  const ctx = { localStorage: { getItem: () => 'ar' }, document: { documentElement: {}, body: null, title: 'x' }, window: {},
+    NodeFilter: {}, MutationObserver: class { observe() {} } };
+  vm.runInNewContext(fs.readFileSync(path.join(__dirname, '..', 'web', 'dil.js'), 'utf8'), ctx);
+  const t = ctx.window.KitaplikDil.t;
+  assert.strictEqual(t('Verildi: 24.11.2026 • Teslim: 01.12.2026'), 'أُعير: 24.11.2026 • موعد الإرجاع: 01.12.2026');
+  assert.strictEqual(t('Veriliş: 24.11.2026 • Teslim: 01.12.2026'), 'أُعير: 24.11.2026 • موعد الإرجاع: 01.12.2026');
+  assert.strictEqual(t('Verildi: 24.11.2026 • İade: 01.12.2026'), 'أُعير: 24.11.2026 • أُعيد: 01.12.2026');
+  assert.match(fs.readFileSync(path.join(__dirname, '..', 'web', 'style.css'), 'utf8'), /#fbcfg[^{]*\{[^}]*direction: ltr/);
+});
