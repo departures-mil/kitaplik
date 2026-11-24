@@ -69,21 +69,6 @@ function swapAndRelaunch(o, st) {
     setTimeout(() => app.exit(0), 300);
   }
 }
-/* YEREL DÜZELTME (Kitaplık): minVersion/setupChannel ya da eski kabuk köprüsü tam KURULUM dosyasını (win-setup) indirdiğinde
-   dosya app.asar yerine yazılmamalı: geçici klasöre kaydedilir, doğrulanır, çalıştırılır ve program kapanır (kurulum yenisini açar). */
-function isSetup(o, meta) { const ch = String((meta && meta.channel) || ''); return !!ch && (ch === o.setupChannel || /setup/i.test(ch)); }
-function runSetup(buf, meta) {
-  if (meta && meta.targetSha256 && sha(buf) !== String(meta.targetSha256).toLowerCase()) throw err('BAD_HASH');
-  const name = path.basename(String((meta && meta.file) || 'setup.exe')).replace(/[^\w.-]/g, '_') || 'setup.exe';
-  const dir = ofs.mkdtempSync(path.join(os.tmpdir(), 'fc-setup-'));
-  const f = path.join(dir, /\.exe$/i.test(name) ? name : name + '.exe');
-  ofs.writeFileSync(f, buf);
-  if (sha(ofs.readFileSync(f)) !== sha(buf)) throw err('STAGE_VERIFY');
-  if (process.platform !== 'win32') throw err('SETUP_WINDOWS_ONLY');
-  spawn(f, [], { detached: true, stdio: 'ignore' }).unref();
-  setTimeout(() => app.exit(0), 600);
-  return 'restarting';
-}
 /** Başarılı açılıştan bir süre sonra eski yedekleri temizler (sorun olursa .bak ile elle geri dönülebilir). */
 function cleanup(o, delayMs) {
   setTimeout(() => {
@@ -94,6 +79,25 @@ function cleanup(o, delayMs) {
 }
 
 /* ---------- pencere ---------- */
+/* ---------- kurulum kanalı (win-setup) ----------
+   updater.plan minVersion/setupChannel ile 'win-setup' kanalını seçtiğinde
+   installFull kurulum exe'sini getirir; çekirdek bunu app.asar.next olarak yazıp takas ediyordu (program bozulurdu).
+   Burada exe SHA-256 ile doğrulanır, geçici klasöre yazılır, ayrık süreç olarak açılır ve program kapanır. */
+function isSetup(meta) { return !!(meta && (/setup/i.test(String(meta.channel || '')) || /\.exe$/i.test(String(meta.file || '')))); }
+function runSetup(buf, meta) {
+  if (process.platform !== 'win32') throw err('SETUP_WINDOWS_ONLY');
+  if (!meta || !meta.targetSha256 || sha(buf) !== String(meta.targetSha256).toLowerCase()) throw err('BAD_HASH');
+  if (meta.targetSize && buf.length !== +meta.targetSize) throw err('BAD_SIZE');
+  const name = String(meta.file || 'setup.exe').replace(/[^\w.-]/g, '_');
+  const dir = path.join(os.tmpdir(), 'fc-setup-' + process.pid); ofs.mkdirSync(dir, { recursive: true });
+  const exe = path.join(dir, /\.exe$/i.test(name) ? name : name + '.exe');
+  ofs.writeFileSync(exe, buf);
+  if (sha(ofs.readFileSync(exe)) !== sha(buf)) throw err('STAGE_VERIFY');
+  spawn(exe, [], { detached: true, stdio: 'ignore', windowsHide: false }).unref();
+  setTimeout(() => app.exit(0), 400);
+  return 'restarting';
+}
+
 function install(win, opts) {
   const o = Object.assign({ channel: 'win-app' }, opts || {});
   const applyDelta = o.applyDelta || applyFcd1;
@@ -112,7 +116,7 @@ function install(win, opts) {
     win.once('leave-full-screen', () => setTimeout(() => { if (win.isMaximized()) win.unmaximize(); then(); }, 60));
     win.setFullScreen(false);
   }
-  win.once('ready-to-show', () => { if (o.show === false) return; win.setFullScreen(true); win.show(); });   // YEREL: show:false → tepside başlar
+  win.once('ready-to-show', () => { if (o.show === false) return; win.setFullScreen(true); win.show(); });   // YEREL (Kitaplık): show:false → tepside başlar
   win.on('enter-full-screen', () => { half = false; emit(); });
   win.on('leave-full-screen', emit);
 
@@ -132,7 +136,8 @@ function install(win, opts) {
     swapAndRelaunch(o, st); return 'restarting';
   }));
   handle('fc:update:full', result((_e, bytes, meta) => {
-    if (isSetup(o, meta)) return runSetup(Buffer.from(bytes), meta);
+    // Kurulum kanalı (win-setup: NSIS exe) app.asar'ın yerine YAZILMAZ; doğrulanıp çalıştırılır.
+    if (isSetup(meta)) return runSetup(Buffer.from(bytes), meta);
     const st = stage(o, Buffer.from(bytes), meta); swapAndRelaunch(o, st); return 'restarting';
   }));
   handle('fc:net:download', async (e, id, url) => {
