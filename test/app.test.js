@@ -47,7 +47,7 @@ test('gömülü ortak çekirdek: sürüm kaydı, modüller, yerel düzeltmeler',
   // yerel düzeltmeler (cekirdek/VERSION'da yazılı)
   assert.match(R('web/cekirdek/fc-core.js'), /typeof h\.update\.run === 'function'/, 'updater: kabuk-yerel güncelleme kancası');
   const em = R('cekirdek/electron/fc-electron-main.js');
-  assert.match(em, /function runSetup/); assert.match(em, /isSetup\(o, meta\)/); assert.match(em, /typeof net\.fetch === 'function'/); assert.match(em, /o\.show === false/);
+  assert.match(em, /function runSetup/); assert.match(em, /isSetup\(meta\)/); assert.match(R("cekirdek/VERSION"), /ebec004/); assert.match(em, /typeof net\.fetch === 'function'/); assert.match(em, /o\.show === false/);
   assert.ok(!/androidx/.test(R('android/src/com/departuresmil/ortak/ApkPatchInstaller.java').replace(/\/\/.*$/gm, '')), 'androidx gerekmez');
 });
 
