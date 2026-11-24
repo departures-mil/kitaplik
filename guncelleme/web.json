@@ -1,9 +1,9 @@
 {
-  "version": "2.14.0",
-  "sha256": "965bc3da374fec5f42dfcfebc0503cdbf04b131361960dc3e0cb283989d747f5",
-  "signature": "MEUCIQCGLvQ5gmjSrt5jU7CBCEUWcf5YFQcj8wvvv0M8y65DzAIgEoA7Rq0qx2+6Xp+FCQ73zxdfsuvlRfYlQzdED89a1JM=",
-  "file": "web-2.14.0.pkg",
-  "bytes": 8042592,
-  "notes": "Yeni: ✦ Asistan Agent — bütün uygulamalardaki çalışmanızı izler ve daha verimli çalışmanız için öneriler verir (bildirim + uygulama içi panel). Ayarlar'dan açıp kapatabilirsiniz.",
-  "publishedAt": "2026-11-24T05:33:19.303Z"
+  "version": "2.14.1",
+  "sha256": "4542fac7589d0bb3cc906d3be694e39422f3fc7a62f9e4cdc508c4beeb526190",
+  "signature": "MEQCIAOujqYphF0gcpL7cxxY99Sf2syqwc7SuD8N2UgPbV8rAiAaJXZVq8WTC783wT6FgeGEmZhs7obzdxts4QJdmsSeeA==",
+  "file": "web-2.14.1.pkg",
+  "bytes": 8045054,
+  "notes": "Asistan Agent iyileştirildi: yapay zeka önerileri güncel Gemini modeliyle, ayarlar kartı yerleşimi düzeltildi.",
+  "publishedAt": "2026-11-24T05:48:25.954Z"
 }

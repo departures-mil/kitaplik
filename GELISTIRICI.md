@@ -70,3 +70,4 @@ Android SDK: dl.google.com'dan build-tools_r35_linux.zip + platform-35_r02.zip �
   izler (içerik yok), çevrim dışı kurallar + kullanıcının kendi Gemini anahtarıyla öneri; bildirim (KitaplikAndroid/kitaplikDesktop.notifyNow)
   + sağ altta ✦ panel. Ayarlar'da "Yönetici ile İletişim"in önüne kart. Masaüstü: desktop/fc-agent-main.js + preload fcAgentHost
   (%APPDATA%/FalconCekirdek/agent ile diğer programlarla paylaşım). Güncellemek: fc-agent.js'yi çekirdekten yeniden kopyala.
+- 2.14.1: fc-agent.js yenilendi (menü/yerleşim iyileştirmeleri, Gemini modeli gemini-flash-latest).

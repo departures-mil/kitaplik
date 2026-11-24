@@ -1,9 +1,9 @@
 {
-  "version": "2.14.0",
-  "sha256": "9232709f621951fec8abb8482bcd7d54ba835d754a0d76ff5177ba0ac061467d",
-  "signature": "MEUCIQDfZrPt8fuxSIfcjg2IAhprIjD3rG6mIqfBvu9gRx+l2wIgS5qJcQbMlU7+yEJ0sri/zk+hWUT2F/zGkf12ZfZGNQw=",
-  "file": "masaustu2-2.14.0.pkg",
-  "bytes": 8079376,
-  "notes": "Yeni: ✦ Asistan Agent — bütün uygulamalardaki çalışmanızı izler ve daha verimli çalışmanız için öneriler verir (bildirim + uygulama içi panel). Ayarlar'dan açıp kapatabilirsiniz.",
-  "publishedAt": "2026-11-24T05:33:19.332Z"
+  "version": "2.14.1",
+  "sha256": "6283edc2eabbed5d0ed4d6d0cdb986e363e784a04806b7c4825062a6eeb6164d",
+  "signature": "MEQCIHft+Q5XwFkLSetiJFqbWDwadsLKOUid+SJjMbgWKlZrAiADjNt+N4lnqfHMaJZO6z+CAj8PXMpwn4nRBZUle6ISTQ==",
+  "file": "masaustu2-2.14.1.pkg",
+  "bytes": 8081284,
+  "notes": "Asistan Agent iyileştirildi: yapay zeka önerileri güncel Gemini modeliyle, ayarlar kartı yerleşimi düzeltildi.",
+  "publishedAt": "2026-11-24T05:48:25.982Z"
 }

@@ -15,7 +15,7 @@
     lang: function () { return ls('kitaplik.dil') || document.documentElement.lang || 'tr'; },
     theme: 'auto', sync: true,
     settingsBefore: ['✉️ Yönetici ile İletişim', '✉️ Contact the administrator', '✉️ التواصل مع المسؤول'],
-    ai: function () { var k = ls('kitaplik.geminiKey'); return k ? { provider: 'gemini', key: k } : null; },
+    ai: function () { var k = ls('kitaplik.geminiKey'); return k ? { provider: 'gemini', key: k, model: 'gemini-flash-latest' } : null; },
     firebase: fb,
     notify: function (t, b) {
       if (window.KitaplikAndroid && KitaplikAndroid.notifyNow) { KitaplikAndroid.notifyNow(t, b); return true; }
