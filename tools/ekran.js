@@ -55,7 +55,7 @@ const shots = [
     page.on('console', (m) => { if (m.type() === 'error' && !/ERR_FAILED|net::|Failed to load/.test(m.text())) errors.push(s.name + ' console: ' + m.text()); });
     await page.addInitScript(({ s, data }) => {
       const set = (k, v) => localStorage.setItem('fc.' + k, JSON.stringify(v));
-      set('lang', s.lang); set('theme', s.theme); set('scheme', s.scheme); set('onboarding.done', true); set('whatsnew.seen', '2.15.0');
+      set('lang', s.lang); set('theme', s.theme); set('scheme', s.scheme); set('onboarding.done', true); set('whatsnew.seen', s.ver || '9.9.9');
       localStorage.setItem('kitaplik.dil', s.lang);
       localStorage.setItem('kitaplik.v2', JSON.stringify(data));
       const st = { fullscreen: true, half: false };
@@ -69,7 +69,7 @@ const shots = [
       window.fcHost = { kind: 'electron', platform: 'win32', version: '2.14.0', window: { minimize: async () => {}, half: async () => {}, toggleFullscreen: async () => {}, close: async () => {}, getState: async () => st, onState: () => () => {} },
         update: { channel: 'win-app', applyPatch: async () => 'restarting', installFull: async () => 'restarting' }, net: { download: async () => { throw new Error('offline'); } }, onMainError: () => () => {}, openExternal: async () => {} };
       window.kitaplikDesktop = desk;
-    }, { s, data: sample() });
+    }, { s: Object.assign({ ver: require('../package.json').version }, s), data: sample() });
     await page.goto(URL0);
     await page.waitForTimeout(1800);
     if (s.tab) { await page.evaluate((t) => document.querySelector('#nav [data-tab="' + t + '"]').click(), s.tab); await page.waitForTimeout(800); }

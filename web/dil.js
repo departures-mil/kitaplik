@@ -27,6 +27,8 @@
     ['Sırala', 'Sort', 'ترتيب'], ['Ad, yazar, yayınevi, ISBN, not…', 'Title, author, publisher, ISBN, note…', 'العنوان، المؤلف، الناشر، ISBN، ملاحظة…'],
     ['★ Favoriler', '★ Favourites', '★ المفضّلة'], ['Kitap ekle', 'Add book', 'إضافة كتاب'], ['Cilt', 'Vol.', 'مجلد'],
     ['nüsha ödünçte', 'copies on loan', 'نسخ مُعارة'], ['Verildi:', 'Lent:', 'أُعير:'],
+    // 2.15.2: ödünç satırları ("Verildi: … • Teslim: …", "Veriliş: … • Teslim: …", "… • İade: …")
+    ['Veriliş:', 'Lent:', 'أُعير:'], ['Teslim:', 'Due:', 'موعد الإرجاع:'], ['İade:', 'Returned:', 'أُعيد:'],
     ['Kişi veya kitap ara', 'Search person or book', 'ابحث عن شخص أو كتاب'], ['Ödünç takibi', 'Loan tracking', 'متابعة الإعارة'],
     ['Ödünç ver', 'Lend', 'إعارة'], ['Şu an ödünçte kitap yok.', 'No books on loan right now.', 'لا توجد كتب مُعارة حالياً.'],
     ['Geciken kitap yok.', 'No overdue books.', 'لا توجد كتب متأخرة.'],
@@ -189,6 +191,8 @@
     }
     // tarih içeren satırlar: yalnız sabit parçalar çevrilir
     if (/^Eklenme: /.test(k)) return s.replace('Eklenme:', EX['Eklenme:']).replace('· Güncelleme:', EX['· Güncelleme:']);
+    if (/^(Verildi|Veriliş): /.test(k))
+      return s.replace(/(Verildi|Veriliş):/, function (x) { return EX[x]; }).replace(/• (Teslim|İade):/, function (x, w) { return '• ' + EX[w + ':']; });
     var m2 = /^(.*?)([:：]?)$/.exec(k);
     if (m2 && m2[2] && EX[m2[1]] !== undefined) return s.replace(k, EX[m2[1]] + m2[2]);
     return null;
