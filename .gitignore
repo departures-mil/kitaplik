@@ -3,3 +3,7 @@ anahtarlar.md
 cikti/
 .derleme/
 node_modules/
+dist/
+*.keystore
+*.jks
+*.pem

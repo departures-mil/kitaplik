@@ -2,25 +2,31 @@
 
 Bu klasör programın kaynağıdır. **keys/ klasörü kaybolursa mevcut kurulumlara güncelleme gönderilemez.**
 
-## Yapı
-- web/        Arayüz (index.html, app.js [esbuild paketi, Firebase dahil], style.css, guncelleme.js)
-- desktop/    Electron kabuğu (main.js başlatıcı, app-main.js, preload.js, updater.js)
-- android/    Android kabuğu (Java kaynakları, paket: com.kitaplik.uygulama)
-- tools/      derle.sh (APK + app.asar + imzalı paketler), paketle.js, yayinla.js (Firestore'a yükler)
-- keys/       kitaplik.keystore + keystore-parola.txt (APK imzası), guncelleme-ozel.pem (paket imzası),
-              firebase.json (projectId, apiKey, code — yayınlamak için)
+## Yapı (2.14.0'dan itibaren — ortak çekirdek)
+- web/        Arayüz: index.html, app.js [esbuild paketi, Firebase dahil; kaynak yok, değişiklikler doğrudan pakette],
+              kabuk.js (ortak çekirdek bağlantısı: üst çubuk, ayarlar düzeni, klasik şema, arşiv, Android güncellemesi, eski kabuk köprüsü),
+              surum.js (OTOMATİK), dil.js, fotokayit.js, cevrimdisi.js, lan*.js, cekirdek/ (ortak çekirdek kopyası)
+- desktop/    Electron: main.js → app-main.js (ortak çekirdek fc-electron-main), preload.js, lan-server.js, icon.png/.ico, package.json
+- android/    Gradle'sız Android kabuğu (com.kitaplik.uygulama): MainActivity, FcBridge (window.AndroidBridge), ortak
+              com.departuresmil.ortak.{FcDelta, ApkPatchInstaller}
+- cekirdek/   ortak-cekirdek kopyası (VERSION: commit + yerel düzeltmeler). ortak-cekirdek deposu burada DEĞİŞTİRİLMEZ.
+- tools/      surum.js (tek sürüm kaynağı: package.json), hazirla.js (.derleme/app + .derleme/www), apk.sh, ekran.js, kopru.js
+- test/       npm test: duman testi, köprü testi, Electron açılış testi (xvfb)
+- keys/       (gitignore) kitaplik.keystore + keystore-parola.txt, guncelleme-ozel.pem — yalnız sahibin bilgisayarında
 
-## Güncelleme kanalları (GitHub: departures-mil/kitaplik → guncelleme/…; 2.11.0 öncesi Firestore)
-- web        → Android'de arayüz anında güncellenir (APK kurulmadan)
-- masaustu2  → Masaüstünde tüm program (www dahil) güncellenir, yeniden başlatınca
-- android2   → APK güncellemesi (yalnızca Java/izin değişikliklerinde gerekir; versionCode artmalı)
-Tüm paketler ECDSA P-256 (SHA256withECDSA) ile imzalı; açık anahtar Updater.java ve updater.js içinde.
+## Kurallar (sahip)
+- Sürüm semver X.Y.Z, etiket vX.Y.Z. productName "Kitaplık", name "kitaplik", appId com.kitaplik.app, Android paket adı ve
+  WebView adresi https://kitaplik.local DEĞİŞMEZ (kullanıcı verisi bunlara bağlı).
+- Güncelleme yalnız GitHub Releases (latest.json + yama). Masaüstü her açılışta tam ekran. tr/en/ar. Ayarların sonunda Admin ile iletişim.
+- Eşitleme: uzak silme → yerelde arşiv (Ayarlar → Arşiv), çakışma → yedek (kitaplik.cakisma.yedek / kitaplik.wifi.yedek).
+- Her kullanıcı kendi Firebase'ini ve kendi Gemini anahtarını girer; sahibin anahtarı pakete gömülmez.
 
 ## Sürüm yayınlama
-1. Değişikliği web/ (ya da desktop/, android/) içinde yap.
-2. tools/derle.sh <yeni-sürüm> <versionCode>   (ör. 2.6.1 9)
-3. node tools/yayinla.js <yeni-sürüm> web masaustu      (APK değiştiyse: … android)
-Android SDK: dl.google.com'dan build-tools_r35_linux.zip + platform-35_r02.zip → ANDROID_TOOLS/bt, /pf
+1. `node tools/surum.js X.Y.Z`, release-notes.json; `npm test`; ekran görüntüsü: `node tools/ekran.js <klasör>`
+2. main'e birleştir; Actions → release → Run workflow (main) — test → build-win (NSIS + app.asar) + build-android
+   (APK, secret'lar: ANDROID_KEYSTORE_B64, ANDROID_KEYSTORE_PASS, ANDROID_KEY_ALIAS) → ortak reusable-release.yml.
+3. Eski kurulum köprüsü (gerekirse): `node tools/kopru.js` → guncelleme/masaustu2.json + android2.json (ECDSA imzalı) commit + push.
+Yerel APK: `ANDROID_TOOLS=<sdk> bash tools/apk.sh` (keys/ varsa imzalar).
 
 ## Geçmiş
 - 2.5: ilk Claude Pro sürümü (paket com.kitaplik.app, eski imza anahtarları kayıp).
@@ -66,3 +72,6 @@ Android SDK: dl.google.com'dan build-tools_r35_linux.zip + platform-35_r02.zip �
   Firestore SDK sayımı app.js içinde yamayla: onSnapshot (sunucudan gelen docChanges = okuma), toplu set/commit ve setDoc = yazma,
   resource-exhausted = kota doldu. Gemini fetch'leri kendiliğinden sayılır. Yönetici Gemini anahtarı ARTIK PAKETE GÖMÜLMEZ
   (derle.sh'tan kaldırıldı): herkes ⚙ ile kendi anahtarını girer ya da kendi Firestore'unda kitapliklar/{kod}/ayarlar/yapayzeka.geminiKey.
+- 2.14.0: ortak çekirdek (87f42f8): Falcon görünümü + şema seçici (eski renkler "klasik"), üst çubuk, GitHub Releases + delta yama
+  (masaüstü app.asar, Android kurulu APK + yama → ApkPatchInstaller), NSIS kurulum, CI, uzak silme → arşiv, iletişim/çökme/kullanım
+  çekirdekten. Eski raw kanallar yalnız köprü (tools/kopru.js). versionCode = major*10000+minor*100+patch (21400).

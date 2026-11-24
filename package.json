@@ -1,0 +1,70 @@
+{
+  "name": "kitaplik",
+  "productName": "Kitaplık",
+  "version": "2.14.0",
+  "private": true,
+  "description": "Kitaplık — kitap ve ödünç takibi (Windows masaüstü + Android). Geliştirme paketi; uygulama paketi desktop/package.json.",
+  "author": "departures-mil",
+  "license": "UNLICENSED",
+  "scripts": {
+    "hazirla": "node tools/hazirla.js",
+    "start": "node tools/hazirla.js && electron .derleme/app",
+    "surum": "node tools/surum.js",
+    "test": "node --test test/app.test.js test/kopru.test.js test/electron.test.js",
+    "dist": "node tools/hazirla.js && electron-builder --win nsis --x64 --publish never",
+    "apk": "bash tools/apk.sh",
+    "ekran": "node tools/ekran.js",
+    "kopru": "node tools/kopru.js"
+  },
+  "devDependencies": {
+    "electron": "33.4.11",
+    "electron-builder": "25.1.8"
+  },
+  "build": {
+    "appId": "com.kitaplik.app",
+    "productName": "Kitaplık",
+    "electronVersion": "33.4.11",
+    "directories": {
+      "app": ".derleme/app",
+      "output": "dist",
+      "buildResources": "build-res"
+    },
+    "files": [
+      "**/*"
+    ],
+    "asar": true,
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "icon": "desktop/icon.ico",
+      "signAndEditExecutable": true,
+      "executableName": "Kitaplik"
+    },
+    "nsis": {
+      "oneClick": true,
+      "perMachine": false,
+      "allowElevation": false,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "Kitaplık",
+      "runAfterFinish": true,
+      "deleteAppDataOnUninstall": false,
+      "installerIcon": "desktop/icon.ico",
+      "uninstallerIcon": "desktop/icon.ico",
+      "multiLanguageInstaller": true,
+      "installerLanguages": [
+        "tr_TR",
+        "en_US",
+        "ar_SA"
+      ],
+      "language": "1055",
+      "artifactName": "Kitaplik-Setup-${version}.${ext}"
+    }
+  }
+}

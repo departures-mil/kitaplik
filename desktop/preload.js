@@ -1,25 +1,24 @@
+// Kitaplık preload: window.fcHost (ortak çekirdek: pencere düğmeleri, güncelleme, indirme) + window.kitaplikDesktop (uygulama).
+// Eski güncelleme köprüsü (updateInfo / checkUpdate / restartToUpdate / windowControl / displayMode) kaldırıldı: ortak çekirdekte.
 const { contextBridge, ipcRenderer } = require('electron');
+require('./cekirdek/electron/fc-preload.js');
 
+let info = {};
+try { info = ipcRenderer.sendSync('kitaplik:info') || {}; } catch (e) { /* yoksay */ }
 const lanSync = (name, ...a) => ipcRenderer.sendSync('lan-sync', name, ...a);
 const lanAsync = (name) => (...a) => ipcRenderer.invoke('lan-async', name, ...a);
 
 contextBridge.exposeInMainWorld('kitaplikDesktop', {
+  shell: 'fc',                     // yeni kabuk
+  legacy: !!info.legacy,           // eski (≤2.13) başlatıcıda çalışıyor → arayüz köprü penceresini gösterir
+  version: info.version || '',
   setReminders: (list) => ipcRenderer.send('set-reminders', list),
   notifyNow: (title, body) => ipcRenderer.send('notify-now', title, body),
   saveFile: (name, text) => ipcRenderer.invoke('save-file', name, text),
-  getDisplayMode: () => ipcRenderer.sendSync('get-display-mode'),
-  setDisplayMode: (m) => ipcRenderer.send('set-display-mode', m),
+  getDisplayMode: () => null,      // masaüstü her açılışta tam ekran (ortak çekirdek); eski "Görünüm" seçimi yok
+  setDisplayMode: () => {},
   postJson: (url, json) => ipcRenderer.invoke('post-json', url, json),
-  updateInfo: () => ipcRenderer.sendSync('update-info'),
-  setUpdateSource: (src) => ipcRenderer.send('update-source', src),
-  setAutoUpdate: (on) => ipcRenderer.send('update-auto', on),
-  checkUpdate: () => ipcRenderer.send('update-check'),
-  restartToUpdate: () => ipcRenderer.send('update-restart'),
-  onUpdateStatus: (fn) => ipcRenderer.on('update-status', (_e, st) => fn(st)),
   openUrl: (url) => ipcRenderer.send('open-url', url),
-  windowControl: (action) => ipcRenderer.send('win-control', action),
-  windowState: () => ipcRenderer.sendSync('win-state'),
-  onWindowState: (fn) => ipcRenderer.on('win-state', (_e, st) => fn(st)),
   // Wi‑Fi ile internetsiz eşitleme
   onLanReq: (fn) => ipcRenderer.on('lanReq', (_e, rid, body) => fn(rid, body)),
   lanInfo: () => lanSync('lanInfo'),

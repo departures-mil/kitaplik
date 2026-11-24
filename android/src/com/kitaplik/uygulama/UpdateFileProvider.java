@@ -10,13 +10,17 @@ import android.os.ParcelFileDescriptor;
 import java.io.File;
 import java.io.FileNotFoundException;
 
-/** İndirilen güncelleme APK'sını paket yükleyicisine verir (yalnızca Kitaplik-x.y.z.apk). */
+/**
+ * İndirilen güncelleme APK'sını paket yükleyicisine verir (androidx FileProvider yerine; Gradle'sız kabuk).
+ * Yalnız content://com.kitaplik.uygulama.guncelleme/updates/<ad>.apk → cacheDir/updates/<ad>.apk (ortak ApkPatchInstaller).
+ */
 public class UpdateFileProvider extends ContentProvider {
     private File file(Uri u) throws FileNotFoundException {
-        String name = u.getLastPathSegment();
-        if (name == null || !name.matches("Kitaplik-[0-9.]+\\.apk")) throw new FileNotFoundException();
-        File f = new File(new File(getContext().getCacheDir(), "guncelleme"), name);
-        if (!f.exists()) throw new FileNotFoundException();
+        java.util.List<String> seg = u.getPathSegments();
+        if (seg == null || seg.size() != 2 || !"updates".equals(seg.get(0)) || !seg.get(1).matches("[A-Za-z0-9._-]+\\.apk"))
+            throw new FileNotFoundException();
+        File f = new File(new File(getContext().getCacheDir(), "updates"), seg.get(1));
+        if (!f.isFile()) throw new FileNotFoundException();
         return f;
     }
 
