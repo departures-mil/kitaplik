@@ -1,0 +1,139 @@
+# Kitaplık — test → derleme (Windows: NSIS kurulum + app.asar; Ubuntu: imzalı APK) → GitHub Release (ortak çekirdek, delta yamalar).
+# Yayın: sürümü değiştirin (node tools/surum.js X.Y.Z + release-notes.json), main'e birleştirin, sonra
+#   Actions → release → "Run workflow" (main)  ya da  git tag vX.Y.Z && git push --tags
+# Entegrasyon dallarında (ortak-cekirdek-*) yalnız test + derleme çalışır.
+# Android APK yalnız şu secret'lar tanımlıysa derlenir (yoksa android kanalı atlanır, masaüstü yine yayınlanır):
+#   ANDROID_KEYSTORE_B64  (keystore dosyasının base64'ü)  ANDROID_KEYSTORE_PASS  ANDROID_KEY_ALIAS  [ANDROID_KEY_PASS, yoksa = KEYSTORE_PASS]
+# Sonra eski kurulumlar için köprü: Milen'in bilgisayarında  node tools/kopru.js  (imza anahtarı yalnız orada).
+name: release
+on:
+  push:
+    tags: ['v*']
+    branches: ['ortak-cekirdek-*']
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22, cache: npm }
+      - run: npm ci
+      - name: Electron için sistem kitaplıkları
+        run: sudo apt-get update -q && sudo apt-get install -y -q xvfb libnss3 libgbm1 libasound2t64 libgtk-3-0 >/dev/null || sudo apt-get install -y -q xvfb libnss3 libgbm1 libgtk-3-0
+      - name: npm test (duman testi + köprü + Electron açılış testi, xvfb)
+        run: npm test
+      - name: Etiket = package.json sürümü
+        if: startsWith(github.ref, 'refs/tags/v')
+        run: |
+          v="$(node -p "require('./package.json').version")"
+          [ "v$v" = "${GITHUB_REF_NAME}" ] || { echo "::error::etiket ${GITHUB_REF_NAME} ≠ package.json v$v"; exit 1; }
+
+  build-win:
+    needs: test
+    runs-on: windows-latest
+    outputs:
+      version: ${{ steps.ver.outputs.version }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22, cache: npm }
+      - run: npm ci
+      - id: ver
+        shell: bash
+        run: echo "version=$(node -p "require('./package.json').version")" >> "$GITHUB_OUTPUT"
+      - name: NSIS kurulum + app.asar
+        run: npm run dist
+        env:
+          CSC_IDENTITY_AUTO_DISCOVERY: 'false'
+      - name: Yayınlanacak dosyaları topla
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir release
+          cp dist/win-unpacked/resources/app.asar release/app.asar
+          cp dist/*Setup*.exe release/
+          ls -la release
+          sha256sum release/*
+      - uses: actions/upload-artifact@v4
+        with:
+          name: release-win
+          path: release/
+          retention-days: 5
+
+  build-android:
+    needs: test
+    runs-on: ubuntu-latest
+    outputs:
+      apk: ${{ steps.apk.outputs.apk }}
+      files: ${{ steps.files.outputs.files }}
+    env:
+      HAS_KEY: ${{ secrets.ANDROID_KEYSTORE_B64 != '' && secrets.ANDROID_KEYSTORE_PASS != '' }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        if: env.HAS_KEY == 'true'
+        with: { node-version: 22 }
+      - name: Android SDK (platform 35, build-tools 35)
+        if: env.HAS_KEY == 'true'
+        run: |
+          SM="$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager"
+          [ -f "$ANDROID_HOME/platforms/android-35/android.jar" ] || yes | "$SM" "platforms;android-35" >/dev/null
+          [ -d "$ANDROID_HOME/build-tools/35.0.0" ] || yes | "$SM" "build-tools;35.0.0" >/dev/null
+      - name: İmzalı APK
+        id: apk
+        if: env.HAS_KEY == 'true'
+        env:
+          ANDROID_KEYSTORE_B64: ${{ secrets.ANDROID_KEYSTORE_B64 }}
+          ANDROID_KEYSTORE_PASS: ${{ secrets.ANDROID_KEYSTORE_PASS }}
+          ANDROID_KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
+          ANDROID_KEY_PASS: ${{ secrets.ANDROID_KEY_PASS }}
+        run: |
+          set -euo pipefail
+          echo "$ANDROID_KEYSTORE_B64" | base64 -d > "$RUNNER_TEMP/kitaplik.keystore"
+          export ANDROID_KEYSTORE="$RUNNER_TEMP/kitaplik.keystore"
+          [ -n "$ANDROID_KEY_ALIAS" ] || export ANDROID_KEY_ALIAS=kitaplik
+          [ -n "$ANDROID_KEY_PASS" ] || unset ANDROID_KEY_PASS
+          bash tools/apk.sh
+          rm -f "$ANDROID_KEYSTORE"
+          mkdir release && cp cikti/Kitaplik-*.apk release/ && rm -f release/*imzasiz*
+          ls -la release && sha256sum release/*
+          echo "apk=true" >> "$GITHUB_OUTPUT"
+      - name: Anahtar yok → Android atlandı
+        if: env.HAS_KEY != 'true'
+        run: echo "::warning::ANDROID_KEYSTORE_B64 / ANDROID_KEYSTORE_PASS / ANDROID_KEY_ALIAS secret'ları tanımlı değil — APK derlenmedi, android kanalı bu sürümde yok."
+      - uses: actions/upload-artifact@v4
+        if: steps.apk.outputs.apk == 'true'
+        with:
+          name: release-android
+          path: release/
+          retention-days: 5
+      - name: Yayınlanacak kanallar
+        id: files
+        run: |
+          {
+            echo 'files<<KANALLAR'
+            echo 'win-app=app.asar'
+            echo 'win-setup=*Setup*.exe'
+            if [ "${{ steps.apk.outputs.apk }}" = "true" ]; then echo 'android=*.apk'; fi
+            echo 'KANALLAR'
+          } >> "$GITHUB_OUTPUT"
+
+  release:
+    needs: [test, build-win, build-android]
+    if: startsWith(github.ref, 'refs/tags/v') || (github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/main')
+    permissions:
+      contents: write
+    uses: departures-mil/ortak-cekirdek/.github/workflows/reusable-release.yml@main
+    with:
+      app_id: kitaplik
+      version: ${{ needs.build-win.outputs.version }}
+      file_prefix: Kitaplik
+      release_title: Kitaplık v${{ needs.build-win.outputs.version }}
+      files: ${{ needs.build-android.outputs.files }}
+      notes_json: release-notes.json
+      core_ref: main

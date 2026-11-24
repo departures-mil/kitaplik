@@ -1,0 +1,8 @@
+ortak-cekirdek 87f42f8ddb1d08d90c85d0296a694ee6138fff40
+https://github.com/departures-mil/ortak-cekirdek/tree/87f42f8ddb1d08d90c85d0296a694ee6138fff40
+Kopyalanan: web/dist/fc-core.js, web/css, web/fonts → web/cekirdek/ · web/electron → cekirdek/electron/ · delta/java → android/src/com/departuresmil/ortak/
+Yerel düzeltmeler (çekirdeğe önerildi):
+- electron/fc-electron-main.js: setup kanalı (win-setup) tam dosyası app.asar yerine yazılmaz, kurulum olarak çalıştırılır;
+  net.fetch olmayan eski Electron'da https ile indirme; install({show:false}) tepside başlatır.
+- js/updater.js (dist/fc-core.js): FC.host.update.run(plan, ilerleme) varsa indirme+yama+kurulum kabukta (Android ApkPatchInstaller).
+- delta/java/ApkPatchInstaller.java: androidx FileProvider yerine uygulamanın kendi ContentProvider adresi.

@@ -1,7 +1,7 @@
 /* Kitaplık — arayüz dili: Türkçe / English / العربية.
    Program metinleri Türkçe yazılı; bu dosya ekrana gelen metin düğümlerini, yer tutucuları ve ipuçlarını
    sözlükten çevirir (sayılar değişkendir), Arapçada sağdan sola yazar. Seçim: localStorage 'kitaplik.dil'.
-   Dil düğmesi sağ üst araç çubuğundadır (🌐). */
+   Dil düğmesi ortak çekirdeğin sağ üst çubuğundadır. */
 (function () {
   'use strict';
   var KEY = 'kitaplik.dil';
@@ -10,6 +10,11 @@
 
   // [Türkçe, English, العربية]
   var R = [
+    // 2.14.0: özet ve ödünç durum metinleri
+    ['Geciken kitaplar', 'Overdue books', 'الكتب المتأخرة'], ['7 gün içinde geri alınacaklar', 'Due back within 7 days', 'تُستعاد خلال 7 أيام'],
+    ['Zamanı gelen hatırlatmalar', 'Due reminders', 'تذكيرات حان وقتها'], ['{n} gün gecikti', '{n} days overdue', 'متأخر {n} يوم'],
+    ['{n} gün kaldı', '{n} days left', 'بقي {n} يوم'], ['Bugün teslim', 'Due today', 'موعد الإعادة اليوم'], ['Yarın teslim', 'Due tomorrow', 'موعد الإعادة غداً'],
+    ['Teslim tarihi yok', 'No due date', 'لا يوجد موعد إعادة'], ['İade', 'Return', 'إعادة'], ['💾 Yedekleme', '💾 Backup', '💾 النسخ الاحتياطي'],
     // gezinme, özet
     ['Kitaplık', 'Library', 'المكتبة'], ['Kitaplığım', 'My library', 'مكتبتي'], ['Özet', 'Overview', 'الملخّص'],
     ['Kitaplar', 'Books', 'الكتب'], ['Ödünç', 'Loans', 'الإعارة'], ['Ayarlar', 'Settings', 'الإعدادات'],
@@ -225,22 +230,9 @@
     }).observe(document.body, { subtree: true, childList: true, characterData: true, attributes: true, attributeFilter: ATTR });
   }
 
-  // sağ üst araç çubuğuna dil seçici
-  function picker() {
-    var box = document.getElementById('topTools');
-    if (!box) return setTimeout(picker, 400);
-    if (document.getElementById('ttLang')) return;
-    var s = document.createElement('select');
-    s.id = 'ttLang'; s.className = 'tt-lang'; s.setAttribute('data-notr', '');
-    s.title = LANG === 'en' ? 'Language' : LANG === 'ar' ? 'اللغة' : 'Dil';
-    [['tr', '🌐 Türkçe'], ['en', '🌐 English'], ['ar', '🌐 العربية']].forEach(function (o) {
-      var e = document.createElement('option'); e.value = o[0]; e.textContent = o[1]; if (o[0] === LANG) e.selected = true; s.appendChild(e);
-    });
-    s.onchange = function () { try { localStorage.setItem(KEY, s.value); } catch (e) {} location.reload(); };
-    box.insertBefore(s, box.firstChild);
-  }
+  // Dil seçici ortak çekirdeğin üst çubuğunda (TR · EN · ع); seçim kabuk.js'te 'kitaplik.dil'e yazılır ve sayfa yeniden yüklenir.
 
   window.KitaplikDil = { lang: LANG, t: function (s) { var v = tr1(s); return v === null ? s : v; } };
-  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', function () { apply(); picker(); });
-  else { apply(); picker(); }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', apply);
+  else apply();
 })();

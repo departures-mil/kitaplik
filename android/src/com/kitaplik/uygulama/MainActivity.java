@@ -35,9 +35,11 @@ import java.net.URL;
 import java.nio.charset.StandardCharsets;
 
 /**
- * Kitaplık Android kabuğu. Arayüz, https://kitaplik.local/ adresinden sunulan web
- * uygulamasıdır. Dosyalar önce indirilmiş web güncellemesinden (files/web/{sürüm}/),
- * yoksa APK içindeki assets/www klasöründen okunur.
+ * Kitaplık Android kabuğu. Arayüz, https://kitaplik.local/ adresinden sunulan web uygulamasıdır (APK içindeki assets/www;
+ * kayıtlar bu kaynağın localStorage/IndexedDB'sinde — adres DEĞİŞMEMELİ).
+ * 2.14.0: güncelleme ortak çekirdekle (GitHub Releases latest.json → AndroidBridge / FcBridge: kurulu APK + yama → yeni APK,
+ * olmazsa tam APK). Eski "web" / "android2" kanalları (raw, ECDSA) bu sürümde okunmaz; eski arayüz güncelleme klasörü silinir.
+ * github.com/departures-mil/kitaplik/releases/… istekleri (latest.json) yerelde çekilip CORS başlığıyla verilir.
  */
 public class MainActivity extends Activity {
     static final String HOST = "kitaplik.local";
@@ -64,13 +66,13 @@ public class MainActivity extends Activity {
     private WebView web;
     private ValueCallback<Uri[]> fileCallback;
     private Uri cameraUri;
-    private long lastResumeCheck = 0;
 
-    private final Updater.Listener updateListener = statusJson -> runOnUiThread(() -> {
-        if (web != null) {
-            web.evaluateJavascript("window.__kitaplikUpdate && window.__kitaplikUpdate(" + statusJson + ")", null);
-        }
-    });
+    private FcBridge fc;
+
+    /** JS çalıştır (her iş parçacığından). */
+    void js(String code) {
+        runOnUiThread(() -> { if (web != null) web.evaluateJavascript(code, null); });
+    }
 
     @Override
     protected void onCreate(Bundle state) {
@@ -88,22 +90,20 @@ public class MainActivity extends Activity {
         s.setTextZoom(100);
 
         web.addJavascriptInterface(new Bridge(), "KitaplikAndroid");
+        fc = new FcBridge(this);
+        web.addJavascriptInterface(fc, "AndroidBridge");
+        fc.cleanupIfUpdated();
+        new Thread(() -> deleteTree(new File(getFilesDir(), "web"))).start();   // ≤2.13 arayüz güncellemeleri (artık kullanılmaz)
         web.setWebViewClient(new WebViewClient() {
             @Override
             public WebResourceResponse shouldInterceptRequest(WebView view, WebResourceRequest req) {
                 Uri u = req.getUrl();
-                if (!HOST.equals(u.getHost())) return null;
+                if (!HOST.equals(u.getHost())) return githubProxy(req);
                 String path = u.getPath();
                 if (path == null || path.equals("/")) path = "/index.html";
                 if (path.contains("..")) return notFound();
                 try {
-                    InputStream in = null;
-                    File dir = Updater.activeWebDir(MainActivity.this);
-                    if (dir != null) {
-                        File f = new File(dir, path.substring(1));
-                        if (f.isFile()) in = new FileInputStream(f);
-                    }
-                    if (in == null) in = getAssets().open("www" + path);
+                    InputStream in = getAssets().open("www" + Uri.decode(path));
                     WebResourceResponse r = new WebResourceResponse(mime(path), "utf-8", in);
                     java.util.Map<String, String> h = new java.util.HashMap<>();
                     h.put("Cache-Control", "no-cache");
@@ -171,8 +171,6 @@ public class MainActivity extends Activity {
         if (state != null) web.restoreState(state);
         else web.loadUrl("https://" + HOST + "/index.html");
 
-        // Açılışta hemen güncelleme denetimi (sessiz; bulunursa bildirim + uygulamada uyarı)
-        web.postDelayed(() -> Updater.check(this, updateListener, Updater.Mode.STARTUP), 2500);
     }
 
     private Intent cameraIntent() {
@@ -201,6 +199,8 @@ public class MainActivity extends Activity {
         if (p.endsWith(".css")) return "text/css";
         if (p.endsWith(".png")) return "image/png";
         if (p.endsWith(".svg")) return "image/svg+xml";
+        if (p.endsWith(".woff2")) return "font/woff2";
+        if (p.endsWith(".txt")) return "text/plain";
         if (p.endsWith(".json")) return "application/json";
         return "application/octet-stream";
     }
@@ -235,12 +235,44 @@ public class MainActivity extends Activity {
         }
     }
 
-    /** Web güncellemesini etkinleştirip sayfayı yeniden yükler. */
-    void reloadApp() {
-        runOnUiThread(() -> {
-            web.clearCache(false);
-            web.loadUrl("https://" + HOST + "/index.html");
-        });
+    /** Üst çubuktaki Tam ekran düğmesi: tam ekran ↔ normal (durum çubuğu görünür); seçim kalıcıdır. */
+    void toggleDisplayMode() {
+        settings().edit().putString("displayMode", "fullscreen".equals(displayMode()) ? "window" : "fullscreen").apply();
+        applyDisplayMode();
+    }
+
+    private static void deleteTree(File f) {
+        if (f == null || !f.exists()) return;
+        File[] k = f.listFiles();
+        if (k != null) for (File x : k) deleteTree(x);
+        f.delete();
+    }
+
+    /** latest.json için: github.com/departures-mil/kitaplik/releases/… GET isteğini yerelde çeker, CORS başlığı ekler. */
+    private WebResourceResponse githubProxy(WebResourceRequest req) {
+        Uri u = req.getUrl();
+        String p = u.getPath();
+        if (!"GET".equalsIgnoreCase(req.getMethod()) || !"https".equals(u.getScheme()) || !"github.com".equals(u.getHost())
+                || p == null || !p.startsWith("/departures-mil/kitaplik/releases/")) return null;
+        java.util.Map<String, String> h = new java.util.HashMap<>();
+        h.put("Access-Control-Allow-Origin", "*");
+        h.put("Cache-Control", "no-store");
+        try {
+            HttpURLConnection c = (HttpURLConnection) new URL(u.toString()).openConnection();
+            c.setInstanceFollowRedirects(true);
+            c.setConnectTimeout(15000);
+            c.setReadTimeout(30000);
+            c.setUseCaches(false);
+            c.setRequestProperty("User-Agent", "Kitaplik-Android");
+            int code = c.getResponseCode();
+            InputStream in = code >= 400 ? c.getErrorStream() : c.getInputStream();
+            if (in == null) in = new java.io.ByteArrayInputStream(new byte[0]);
+            String msg = c.getResponseMessage();
+            return new WebResourceResponse(p.endsWith(".json") ? "application/json" : "application/octet-stream", "utf-8",
+                    code, msg == null || msg.isEmpty() ? (code < 400 ? "OK" : "Error") : msg, h, in);
+        } catch (Exception e) {
+            return new WebResourceResponse("text/plain", "utf-8", 502, "Bad Gateway", h, new java.io.ByteArrayInputStream(new byte[0]));
+        }
     }
 
     @Override
@@ -285,12 +317,7 @@ public class MainActivity extends Activity {
     protected void onResume() {
         super.onResume();
         applyDisplayMode();
-        Updater.resumeInstall(this);
-        long now = System.currentTimeMillis();
-        if (now - lastResumeCheck > 30 * 60 * 1000L) {
-            lastResumeCheck = now;
-            Updater.check(this, updateListener, Updater.Mode.BACKGROUND);
-        }
+        if (fc != null) fc.resumeInstall();
     }
 
     @Override
@@ -419,43 +446,16 @@ public class MainActivity extends Activity {
             return LanSync.ipsJson();
         }
 
-        // ---- Güncelleme ----
-        @JavascriptInterface
-        public String updateInfo() {
-            return Updater.info(MainActivity.this);
-        }
-
-        @JavascriptInterface
-        public void setUpdateSource(String src) {
-            String prev = Updater.prefs(MainActivity.this).getString("source", "");
-            Updater.setSource(MainActivity.this, src);
-            if (!src.isEmpty() && !src.equals(prev)) Updater.check(MainActivity.this, updateListener, Updater.Mode.MANUAL);
-        }
-
-        @JavascriptInterface
-        public void setAutoUpdate(boolean on) {
-            Updater.setAuto(MainActivity.this, on);
-            if (on) Updater.check(MainActivity.this, updateListener, Updater.Mode.MANUAL);
-        }
-
-        @JavascriptInterface
-        public void checkUpdate() {
-            Updater.check(MainActivity.this, updateListener, Updater.Mode.MANUAL);
-        }
-
-        /** "Güncelle" düğmesi: hazır web güncellemesini uygular ya da APK kurulumunu başlatır. */
-        @JavascriptInterface
-        public void installUpdate() {
-            runOnUiThread(() -> Updater.apply(MainActivity.this, updateListener));
-        }
+        // ---- Güncelleme: ortak çekirdek (window.AndroidBridge → FcBridge). Eski updateInfo/checkUpdate/installUpdate kaldırıldı. ----
 
         @JavascriptInterface
         public String shellInfo() {
             try {
                 JSONObject o = new JSONObject();
-                o.put("apk", Updater.currentName(MainActivity.this));
-                o.put("apkCode", Updater.currentCode(MainActivity.this));
-                o.put("web", Updater.runningWeb(MainActivity.this));
+                android.content.pm.PackageInfo pi = getPackageManager().getPackageInfo(getPackageName(), 0);
+                o.put("apk", pi.versionName);
+                o.put("apkCode", Build.VERSION.SDK_INT >= 28 ? pi.getLongVersionCode() : pi.versionCode);
+                o.put("web", pi.versionName);
                 return o.toString();
             } catch (Exception e) {
                 return "{}";

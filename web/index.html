@@ -1,29 +1,30 @@
 <!doctype html>
-<html lang="tr">
+<html lang="tr" data-scheme="falcon">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="theme-color" content="#6d4c41">
+  <meta name="theme-color" content="#070b14">
   <title>Kitaplık</title>
+  <script>/* görünümü ilk boyamadan önce uygula (yanıp sönmesin) */try{var g=function(k){try{return JSON.parse(localStorage.getItem('fc.'+k))}catch(e){return null}},d=document.documentElement,th=g('theme'),sc=g('scheme'),l=g('lang')||localStorage.getItem('kitaplik.dil');if(sc)d.setAttribute('data-scheme',sc);if(th==='light'||(th==='auto'&&matchMedia('(prefers-color-scheme: light)').matches))d.classList.add('theme-light');if(l){d.lang=l;d.dir=l==='ar'?'rtl':'ltr'}}catch(e){}</script>
+  <link rel="stylesheet" href="cekirdek/css/tokens.css">
+  <link rel="stylesheet" href="cekirdek/css/core.css">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <nav id="nav"></nav>
+  <header class="topbar" id="topbar"><div class="topbar-title"><h1 class="page-title" id="pageTitle">Kitaplık</h1><p class="page-sub" id="pageSub"></p></div></header>
   <main id="view"></main>
   <div id="modal"></div>
   <div id="toast"></div>
-  <script src="guncelleme.js"></script>
-  <script src="kullanim.js"></script>
+  <script src="cekirdek/fc-core.js"></script>
+  <script src="surum.js"></script>
+  <script src="kabuk.js"></script>
   <script src="app.js"></script>
-  <script src="ustcubuk.js"></script>
   <script src="dil.js"></script>
   <script src="cevrimdisi.js"></script>
   <script src="fotokayit.js"></script>
   <script src="lan-vendor.js"></script>
   <script src="lan.js"></script>
   <script src="lan-kitaplik.js"></script>
-  <script src="duyuru.js"></script>
-  <script src="duyuru-baslat.js"></script>
-  <script src="kullanim-baslat.js"></script>
 </body>
 </html>
