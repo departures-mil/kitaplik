@@ -1,9 +1,9 @@
 {
-  "version": "2.13.0",
-  "sha256": "2c40db8e084dbffcf308893392a9dd0e41a3d03f06870aa29ab045704b94528f",
-  "signature": "MEUCIQDf6+/fJSMiUT9sCu/TWVsDfRcZT5W54nPYbFUqdKCAagIgYlNIgE517ef+ljxN3kYy/Tj4O9tYREcYSu5Crfgo8cc=",
-  "file": "web-2.13.0.pkg",
-  "bytes": 7980587,
-  "notes": "Arayüz artık Türkçe / English / العربية: sağ üstteki 🌐 düğmesinden dil seçilir, Arapçada sağdan sola yazılır.",
-  "publishedAt": "2026-11-22T13:27:17.666Z"
+  "version": "2.14.0",
+  "sha256": "965bc3da374fec5f42dfcfebc0503cdbf04b131361960dc3e0cb283989d747f5",
+  "signature": "MEUCIQCGLvQ5gmjSrt5jU7CBCEUWcf5YFQcj8wvvv0M8y65DzAIgEoA7Rq0qx2+6Xp+FCQ73zxdfsuvlRfYlQzdED89a1JM=",
+  "file": "web-2.14.0.pkg",
+  "bytes": 8042592,
+  "notes": "Yeni: ✦ Asistan Agent — bütün uygulamalardaki çalışmanızı izler ve daha verimli çalışmanız için öneriler verir (bildirim + uygulama içi panel). Ayarlar'dan açıp kapatabilirsiniz.",
+  "publishedAt": "2026-11-24T05:33:19.303Z"
 }

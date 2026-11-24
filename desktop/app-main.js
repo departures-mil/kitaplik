@@ -7,6 +7,7 @@ const fs = require('fs');
 const path = require('path');
 
 const createUpdater = require('./updater.js');
+try { require('./fc-agent-main.js').install(); } catch (e) { console.error('fc-agent', e); }
 
 const APP_ID = 'com.kitaplik.app';
 app.setAppUserModelId(APP_ID);
