@@ -1,9 +1,9 @@
 {
-  "version": "2.15.0",
-  "sha256": "55bb16c03602875a8f6141c81222d5e284f565969eda901229968d1fbd8eb458",
-  "signature": "MEUCIQD2wbYIdf46U8mCqfkk4nk4na/Kyx141rn722Vo9DmOyAIgGMKAanK6c3Tr50gLzCDs9R1yvPGObn3seuDzi2lU6sI=",
-  "file": "masaustu2-2.15.0.pkg",
-  "bytes": 8573246,
-  "notes": "Kitaplık 2.15.0 yeni kurulum programıyla gelir (GitHub Releases). Bu güncellemeden sonra program sizi tek tıkla yeni kuruluma götürür; kayıtlarınız korunur.\nYeni görünüm (Falcon şeması, renk şeması seçimi; eski renkler 'Klasik' olarak duruyor), Türkçe / English / العربية. Sağ üstte Eşitle, Wi‑Fi, Güncelle, tema ve dil; masaüstünde Küçült · Orta · Tam ekran · Kapat. Güncellemeler artık GitHub sürümlerinden tek tıkla gelir ve yalnızca değişen kısımlar indirilir (indirirken yüzde, MB, kalan ve hız görünür). Masaüstü kurulum programıyla gelir. Başka cihazda silinen kayıt artık bu cihazda silinmez, Ayarlar → Arşiv'e taşınır; çakışan değişiklikler yedeklenir. Ayarlar'ın sonunda Admin ile iletişim; Kullanım Limitleri, otomatik hata raporu, ilk açılış rehberi ve yazı boyutu eklendi. Kayıtlarınız olduğu gibi kalır.",
-  "publishedAt": "2026-11-24T09:02:41.145Z"
+  "version": "2.15.1",
+  "sha256": "f959a8d8e30c943f10aacd21f22a5b0a8471780eea263ff6fc1cb8ab5c2b0b02",
+  "signature": "MEUCIQCO6JL2RNbZz7iv0XkY0gXdtU7RefpeCyv8YdKpDwy81wIgBFNSDiuEzMK3vx8mRyzGGf/5S83V1kIjVqT73CvxxWY=",
+  "file": "masaustu2-2.15.1.pkg",
+  "bytes": 8571626,
+  "notes": "Kitaplık 2.15.1 yeni kurulum programıyla gelir (GitHub Releases). Bu güncellemeden sonra program sizi tek tıkla yeni kuruluma götürür; kayıtlarınız korunur.\nTelefon (Android) sürümü artık her güncellemede otomatik yayınlanıyor; küçük düzeltmeler.",
+  "publishedAt": "2026-11-24T09:27:06.727Z"
 }
