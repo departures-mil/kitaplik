@@ -82,3 +82,4 @@ Yerel APK: `ANDROID_TOOLS=<sdk> bash tools/apk.sh` (keys/ varsa imzalar).
   çekirdekten. Eski raw kanallar yalnız köprü (tools/kopru.js). versionCode = major*10000+minor*100+patch (2.15.0 → 21500).
   Asistan Agent artık çekirdekten (FC.agent; aynı fc.* kayıtları ve %APPDATA%/FalconCekirdek/agent) — fc-agent.js / agent-baslat.js /
   fc-agent-main.js kaldırıldı.
+- 2.15.1 (versionCode 21501): Android APK artık CI'da (secret'lardaki keystore ile) her sürümde derlenip android kanalına yayınlanıyor.
