@@ -1,9 +1,9 @@
 {
-  "version": "2.14.1",
-  "sha256": "6283edc2eabbed5d0ed4d6d0cdb986e363e784a04806b7c4825062a6eeb6164d",
-  "signature": "MEQCIHft+Q5XwFkLSetiJFqbWDwadsLKOUid+SJjMbgWKlZrAiADjNt+N4lnqfHMaJZO6z+CAj8PXMpwn4nRBZUle6ISTQ==",
-  "file": "masaustu2-2.14.1.pkg",
-  "bytes": 8081284,
-  "notes": "Asistan Agent iyileştirildi: yapay zeka önerileri güncel Gemini modeliyle, ayarlar kartı yerleşimi düzeltildi.",
-  "publishedAt": "2026-11-24T05:48:25.982Z"
+  "version": "2.15.0",
+  "sha256": "55bb16c03602875a8f6141c81222d5e284f565969eda901229968d1fbd8eb458",
+  "signature": "MEUCIQD2wbYIdf46U8mCqfkk4nk4na/Kyx141rn722Vo9DmOyAIgGMKAanK6c3Tr50gLzCDs9R1yvPGObn3seuDzi2lU6sI=",
+  "file": "masaustu2-2.15.0.pkg",
+  "bytes": 8573246,
+  "notes": "Kitaplık 2.15.0 yeni kurulum programıyla gelir (GitHub Releases). Bu güncellemeden sonra program sizi tek tıkla yeni kuruluma götürür; kayıtlarınız korunur.\nYeni görünüm (Falcon şeması, renk şeması seçimi; eski renkler 'Klasik' olarak duruyor), Türkçe / English / العربية. Sağ üstte Eşitle, Wi‑Fi, Güncelle, tema ve dil; masaüstünde Küçült · Orta · Tam ekran · Kapat. Güncellemeler artık GitHub sürümlerinden tek tıkla gelir ve yalnızca değişen kısımlar indirilir (indirirken yüzde, MB, kalan ve hız görünür). Masaüstü kurulum programıyla gelir. Başka cihazda silinen kayıt artık bu cihazda silinmez, Ayarlar → Arşiv'e taşınır; çakışan değişiklikler yedeklenir. Ayarlar'ın sonunda Admin ile iletişim; Kullanım Limitleri, otomatik hata raporu, ilk açılış rehberi ve yazı boyutu eklendi. Kayıtlarınız olduğu gibi kalır.",
+  "publishedAt": "2026-11-24T09:02:41.145Z"
 }
