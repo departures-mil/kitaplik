@@ -4,7 +4,7 @@
 # Android SDK: $ANDROID_TOOLS (bt/<sürüm>/, pf/android-35/) ya da $ANDROID_HOME / $ANDROID_SDK_ROOT (build-tools/, platforms/).
 # İmza (sırayla): ANDROID_KEYSTORE (dosya yolu) + ANDROID_KEYSTORE_PASS (+ ANDROID_KEY_ALIAS, varsayılan kitaplik, ANDROID_KEY_PASS)
 #   ya da yerel keys/kitaplik.keystore + keys/keystore-parola.txt. Anahtar yoksa APK_IMZASIZ=1 ile yalnız derleme denenir.
-# Tüm sürümler AYNI anahtarla imzalanmalı (C:\Claude Programlarım\_Anahtarlar\Kitaplik); başka anahtarla kurulu uygulama güncellenmez.
+# Tüm sürümler AYNI anahtarla imzalanmalı (geliştiricinin bilgisayarındaki anahtar klasörü); başka anahtarla kurulu uygulama güncellenmez.
 set -euo pipefail
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 SURUM="$(node -p "require('$ROOT/tools/surum.js').version()")"
