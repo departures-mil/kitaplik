@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// ESKİ GÜNCELLEME KANALLARI KÖPRÜSÜ — ≤2.13 masaüstü ve ≤2.11 Android kurulumları için (Milen'in bilgisayarında çalışır).
+// ESKİ GÜNCELLEME KANALLARI KÖPRÜSÜ — ≤2.13 masaüstü ve ≤2.11 Android kurulumları için (kullanıcının bilgisayarında çalışır).
 //
 // Eski güncelleyiciler ne yapar:
 //   masaüstü (eski app.asar → updater.js): raw.githubusercontent.com/departures-mil/kitaplik/main/guncelleme/masaustu2.json okur;
@@ -13,7 +13,7 @@
 //
 // Kullanım (depo kökünde, GitHub Release yayınlandıktan SONRA):
 //   node tools/kopru.js                      en son release'ten paketleri hazırlar, imzalar, guncelleme/'ye yazar, commit + push
-//   node tools/kopru.js --anahtar <pem>      özel anahtar yolu (varsayılan keys/guncelleme-ozel.pem, sonra C:\Claude Programlarım\_Anahtarlar\Kitaplik\guncelleme-ozel.pem)
+//   node tools/kopru.js --anahtar <pem>      özel anahtar yolu (varsayılan keys/guncelleme-ozel.pem, sonra geliştiricinin bilgisayarındaki anahtar klasörü)
 //   node tools/kopru.js --push-yok           yalnız dosyaları yaz
 //   node tools/kopru.js --kaynak <klasör>    (test) latest.json + asset dosyalarını internet yerine bu klasörden al
 //   node tools/kopru.js --acik-anahtar <pem> (test) gömülü eski açık anahtar yerine bununla doğrula
