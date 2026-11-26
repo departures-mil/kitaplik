@@ -154,7 +154,7 @@
   try { if (ESKI && FC.storage.get('onboarding.done', null) == null) FC.storage.set('onboarding.done', true); } catch (e) { /* yoksay */ }
   // Kendi Gemini anahtarı: çekirdek (fc.ai) ↔ uygulama (kitaplik.geminiKey)
   try { var gk = localStorage.getItem('kitaplik.geminiKey'); if (gk && !FC.storage.get('ai', null)) FC.storage.set('ai', { provider: 'gemini', key: gk }); } catch (e) { /* yoksay */ }
-  FC.init({ app: APP, repo: REPO, version: VER, setupChannel: 'win-setup', announcements: true, whatsnew: false, onboarding: false });
+  FC.init({ app: APP, repo: REPO, version: VER, setupChannel: FC.host.kind === 'android' ? undefined : 'win-setup', announcements: true, whatsnew: false, onboarding: false });
 
   function ayar() { try { return JSON.parse(localStorage.getItem('kitaplik.v2') || '{}').settings || {}; } catch (e) { return {}; } }
   function projeId() { var a = ayar(), fc = a.firebaseConfig; try { if (typeof fc === 'string') fc = JSON.parse(fc); } catch (e) { fc = null; } return (a.libraryCode && fc && fc.projectId) || ''; }

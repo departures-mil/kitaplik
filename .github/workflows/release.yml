@@ -134,7 +134,9 @@ jobs:
       version: ${{ needs.build-win.outputs.version }}
       file_prefix: Kitaplik
       release_title: Kitaplık v${{ needs.build-win.outputs.version }}
-      min_version: 2.15.3
+      # 2.15.0: masaüstü 2.14 ve öncesi tek seferlik tam kurulum (win-setup) alır. 2.15.5'te 2.15.3'ten indirildi: Android 2.15.1/2.15.2'nin
+      # gömülü çekirdeği minVersion altındayken win-setup (.exe) seçiyordu → telefon APK yerine Windows kurulumunu indiriyordu.
+      min_version: 2.15.0
       files: ${{ needs.build-android.outputs.files }}
       notes_json: release-notes.json
       core_ref: main

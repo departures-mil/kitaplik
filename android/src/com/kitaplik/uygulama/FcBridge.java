@@ -103,6 +103,7 @@ final class FcBridge {
                 if (out.exists()) out.delete();
                 if (!incoming.renameTo(out)) throw new IOException("MOVE_FAILED");
             }
+            installer().verifyApk(out);
             installOnUi(out);
             return "{\"ok\":true}";
         } catch (Exception e) {
@@ -127,6 +128,7 @@ final class FcBridge {
             try {
                 JSONObject p = new JSONObject(planJson);
                 JSONObject full = p.getJSONObject("full");
+                if (!full.optString("file", "").toLowerCase(java.util.Locale.ROOT).endsWith(".apk")) throw new IOException("NOT_APK");
                 JSONObject patch = p.optJSONObject("patch");
                 ApkPatchInstaller up = installer();
                 File apk = up.obtainApk(full.getString("url"), full.getString("sha256"), full.optLong("size", 0),
@@ -169,6 +171,7 @@ final class FcBridge {
         File apk = new File(installer().updatesDir(), "update.apk");
         if (!apk.exists()) { prefs().edit().putBoolean("installPending", false).apply(); return; }
         if (android.os.Build.VERSION.SDK_INT >= 26 && !a.getPackageManager().canRequestPackageInstalls()) return;
+        try { installer().verifyApk(apk); } catch (IOException e) { apk.delete(); prefs().edit().putBoolean("installPending", false).apply(); return; }
         installOnUi(apk);
     }
 

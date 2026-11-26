@@ -44,6 +44,17 @@ test('gömülü ortak çekirdek: sürüm kaydı, modüller, yerel düzeltmeler',
   assert.strictEqual(p.url, 'https://github.com/departures-mil/kitaplik/releases/download/v2.15.0/Kitaplik-win-app.patch-from-2.14.0.bin');
   assert.strictEqual(FC.updater.plan(Object.assign({}, man, { minVersion: '2.15.0' }), o).channel, 'win-setup');
   assert.strictEqual(FC.updater.plan(man, Object.assign({}, o, { channel: 'android' })).mode, 'patch');
+  // 2.15.5: Android minVersion altındayken bile win-setup (.exe) değil, kendi APK'sını tam indirir
+  const pa = FC.updater.plan(Object.assign({}, man, { minVersion: '2.15.0' }), Object.assign({}, o, { channel: 'android' }));
+  assert.strictEqual(pa.channel, 'android'); assert.strictEqual(pa.mode, 'full'); assert.match(pa.full.file, /\.apk$/);
+  assert.throws(() => FC.updater.plan(Object.assign({}, man, { assets: Object.assign({}, man.assets, { android: man.assets['win-setup'] }) }), Object.assign({}, o, { channel: 'android' })), /NOT_APK/);
+  assert.match(R('web/kabuk.js'), /setupChannel: FC\.host\.kind === 'android' \? undefined : 'win-setup'/, 'kabuk: Android kurulum kanalı kullanmaz');
+  const api = R('android/src/com/departuresmil/ortak/ApkPatchInstaller.java');
+  assert.match(api, /public void verifyApk\(File apk\)/); assert.match(api, /NOT_APK/); assert.match(api, /WRONG_PACKAGE/);
+  assert.match(R('android/src/com/kitaplik/uygulama/FcBridge.java'), /installer\(\)\.verifyApk\(out\)/);
+  // yayın: eski Android sürümleri (2.15.1+) minVersion altında kalmamalı
+  const mv = (R('.github/workflows/release.yml').match(/min_version:\s*([\d.]+)/) || [])[1];
+  assert.ok(mv && FC.updater.cmp(mv, '2.15.1') <= 0, 'min_version ' + mv + ' > 2.15.1 → eski telefonlar güncellenemez');
   // yerel düzeltmeler (cekirdek/VERSION'da yazılı)
   assert.match(R('web/cekirdek/fc-core.js'), /typeof h\.update\.run === 'function'/, 'updater: kabuk-yerel güncelleme kancası');
   const em = R('cekirdek/electron/fc-electron-main.js');

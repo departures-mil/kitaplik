@@ -1,7 +1,7 @@
 {
   "name": "kitaplik",
   "productName": "Kitaplık",
-  "version": "2.15.4",
+  "version": "2.15.5",
   "description": "Kitaplık durum ve ödünç takip uygulaması",
   "author": "Kitaplik",
   "main": "main.js"

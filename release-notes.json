@@ -1,5 +1,5 @@
 {
-  "tr": "Eski sürümlerden bu sürüme geçiş bir kez tam kurulumla yapılır (eski güncelleyicideki siyah pencere sorunu yaşanmaz). Sonraki güncellemeler yine arka planda, kendiliğinden. Kayıtlar korunur.",
-  "en": "Moving from older versions to this one is done once with a full install (avoids the black-window problem of the old updater). Later updates again run by themselves in the background. Records are kept.",
-  "ar": "يتم الانتقال من الإصدارات القديمة إلى هذا الإصدار مرة واحدة بتثبيت كامل (تجنباً لمشكلة النوافذ السوداء في المحدِّث القديم). التحديثات اللاحقة تتم تلقائياً في الخلفية. تبقى السجلات محفوظة."
+  "tr": "Telefonda güncelleme düzeltildi: eski sürümlü telefonlar yanlışlıkla Windows kurulum dosyasını indiriyor ve \"uygulama dosyasında sorun var\" hatası veriyordu. Artık telefon yalnızca kendi APK dosyasını indirir; dosya kurulumdan önce denetlenir. Kayıtlar korunur.",
+  "en": "Phone update fixed: phones on older versions were downloading the Windows installer by mistake and showed \"There's a problem with the app file\". The phone now downloads only its own APK, and the file is checked before installing. Records are kept.",
+  "ar": "تم إصلاح التحديث على الهاتف: كانت الهواتف ذات الإصدارات القديمة تُنزِّل ملف تثبيت ويندوز عن طريق الخطأ وتُظهر رسالة «هناك مشكلة في ملف التطبيق». أصبح الهاتف الآن يُنزِّل ملف APK الخاص به فقط، ويُفحَص الملف قبل التثبيت. تبقى السجلات محفوظة."
 }
