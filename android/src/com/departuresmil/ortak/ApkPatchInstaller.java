@@ -4,11 +4,14 @@ import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 import android.provider.Settings;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -60,9 +63,15 @@ public final class ApkPatchInstaller {
     public File obtainApk(String fullUrl, String fullSha256, long fullSize,
                           String patchUrl, String patchSha256, long patchSize,
                           Listener listener) throws IOException {
+        // YEREL DÜZELTME (Kitaplık 2.15.5): Android'e yalnız .apk indirilir (eskiden 2.15.3 altı sürümlerde Windows kurulum
+        // dosyası seçiliyordu → "There's a problem with the app file").
+        String fullPath = fullUrl == null ? "" : Uri.parse(fullUrl).getPath();
+        if (fullPath == null || !fullPath.toLowerCase(java.util.Locale.ROOT).endsWith(".apk")) throw new IOException("NOT_APK");
         File dir = updatesDir();
         File out = new File(dir, "update.apk");
-        if (out.exists() && fullSha256.equalsIgnoreCase(FcDelta.hex(FcDelta.sha256(out)))) return out; // önceden hazır
+        if (out.exists() && fullSha256.equalsIgnoreCase(FcDelta.hex(FcDelta.sha256(out)))) {   // önceden hazır
+            try { verifyApk(out); return out; } catch (IOException e) { out.delete(); }
+        }
 
         if (patchUrl != null && canPatch()) {
             File patch = new File(dir, "update.patch");
@@ -74,6 +83,9 @@ public final class ApkPatchInstaller {
                 FcDelta.Header h = FcDelta.apply(installed, patch, out, null);
                 if (!fullSha256.equalsIgnoreCase(h.dstSha256Hex()))
                     throw new IOException("yama başka bir sürüm üretiyor");
+                if (!fullSha256.equalsIgnoreCase(FcDelta.hex(FcDelta.sha256(out))))
+                    throw new IOException("yamalı APK SHA-256 uyuşmuyor");
+                verifyApk(out);
                 return out;
             } catch (Exception e) {
                 out.delete();
@@ -89,7 +101,39 @@ public final class ApkPatchInstaller {
             out.delete();
             throw new IOException("indirilen APK SHA-256 uyuşmuyor");
         }
+        try {
+            verifyApk(out);
+        } catch (IOException e) {
+            out.delete();
+            throw e;
+        }
         return out;
+    }
+
+    /**
+     * Kurulumdan önce son denetim: dosya bir APK (ZIP) olmalı, Android onu okuyabilmeli, paket adı bu uygulamanınki ve
+     * sürüm kodu kurulu olandan büyük olmalı. Aksi hâlde paket yükleyici hiç açılmaz ("problem with the app file" yerine
+     * anlaşılır bir hata ve tam dosyaya geri dönüş).
+     */
+    public void verifyApk(File apk) throws IOException {
+        if (apk == null || !apk.isFile() || apk.length() < 1024) throw new IOException("NOT_APK: dosya yok ya da çok küçük");
+        byte[] m = new byte[4];
+        FileInputStream in = new FileInputStream(apk);
+        try {
+            if (in.read(m) != 4 || m[0] != 'P' || m[1] != 'K' || m[2] != 3 || m[3] != 4) throw new IOException("NOT_APK: ZIP değil");
+        } finally {
+            try { in.close(); } catch (IOException ignored) { }
+        }
+        PackageManager pm = ctx.getPackageManager();
+        PackageInfo pi = pm.getPackageArchiveInfo(apk.getPath(), 0);
+        if (pi == null) throw new IOException("NOT_APK: Android dosyayı okuyamadı");
+        if (!ctx.getPackageName().equals(pi.packageName)) throw new IOException("WRONG_PACKAGE: " + pi.packageName);
+        try {
+            PackageInfo cur = pm.getPackageInfo(ctx.getPackageName(), 0);
+            long nv = Build.VERSION.SDK_INT >= 28 ? pi.getLongVersionCode() : pi.versionCode;
+            long cv = Build.VERSION.SDK_INT >= 28 ? cur.getLongVersionCode() : cur.versionCode;
+            if (nv <= cv) throw new IOException("OLD_VERSION: " + nv + " <= " + cv);
+        } catch (PackageManager.NameNotFoundException ignored) { }
     }
 
     /** Split APK (App Bundle) kurulumlarında tek sourceDir yeni APK'yı temsil etmez → yama kullanılamaz. */

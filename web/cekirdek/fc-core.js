@@ -737,8 +737,10 @@
     if (o.app && man.app && man.app !== o.app) throw Object.assign(new Error('WRONG_APP'), { code: 'WRONG_APP' });
     if (cmp(man.version, o.version) <= 0) return null;
     var assets = man.assets || {}, ch = o.channel, belowMin = !!(man.minVersion && parse(man.minVersion) && cmp(o.version, man.minVersion) < 0);
-    if (belowMin && o.setupChannel && goodAsset(assets[o.setupChannel])) ch = o.setupChannel;
+    // YEREL DÜZELTME (Kitaplık 2.15.5): kurulum kanalı (win-setup) yalnız masaüstü içindir; Android hep kendi APK kanalında kalır
+    if (belowMin && o.setupChannel && o.channel !== 'android' && goodAsset(assets[o.setupChannel])) ch = o.setupChannel;
     var a = assets[ch];
+    if (o.channel === 'android' && goodAsset(a) && !/\.apk$/i.test(a.file)) throw Object.assign(new Error('NOT_APK'), { code: 'NOT_APK', channel: ch });
     if (!goodAsset(a)) throw Object.assign(new Error('NO_CHANNEL'), { code: 'NO_CHANNEL', channel: ch });
     var full = { file: a.file, size: +a.size, sha256: a.sha256.toLowerCase(), url: assetUrl(o, man.version, a.file) };
     var p = !belowMin && a.patches && a.patches[normVer(o.version)];
