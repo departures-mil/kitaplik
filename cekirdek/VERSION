@@ -1,7 +1,10 @@
 ortak-cekirdek f1d1d850614ee93560181e5a6b15100643b19e14
 https://github.com/departures-mil/ortak-cekirdek/tree/f1d1d850614ee93560181e5a6b15100643b19e14
 Kopyalanan: web/dist/fc-core.js, web/css, web/fonts → web/cekirdek/ · web/electron → cekirdek/electron/ · delta/java → android/src/com/departuresmil/ortak/
++ ortak-cekirdek 1c11eb0 (2026-11-27) Android ağ köprüsü: httpGet + apkUpdate (yalnız bu farkı uygulandı; aşağıdaki yerel düzeltmeler korunuyor)
 Yerel düzeltmeler (çekirdeğe önerilecek):
 - web/dist/fc-core.js updater.plan: Android kanalı (channel 'android') minVersion altında da setupChannel'a (win-setup .exe) geçmez; Android'de .apk olmayan dosya → NOT_APK.
 - delta/java/ApkPatchInstaller.java: verifyApk (ZIP + paket adı + versionCode) kurulumdan önce; tam adres .apk değilse NOT_APK.
 - delta/java/ApkPatchInstaller.java: androidx FileProvider yerine uygulamanın kendi ContentProvider adresi.
+
+Yerel düzeltme (2026-11-25): contact — kişisel e-posta yedeği (FormSubmit) kaldırıldı; ortak-cekirdek c3ccfb6 ile aynı.

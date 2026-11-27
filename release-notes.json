@@ -1,5 +1,5 @@
 {
-  "tr": "Telefonda güncelleme düzeltildi: eski sürümlü telefonlar yanlışlıkla Windows kurulum dosyasını indiriyor ve \"uygulama dosyasında sorun var\" hatası veriyordu. Artık telefon yalnızca kendi APK dosyasını indirir; dosya kurulumdan önce denetlenir. Kayıtlar korunur.",
-  "en": "Phone update fixed: phones on older versions were downloading the Windows installer by mistake and showed \"There's a problem with the app file\". The phone now downloads only its own APK, and the file is checked before installing. Records are kept.",
-  "ar": "تم إصلاح التحديث على الهاتف: كانت الهواتف ذات الإصدارات القديمة تُنزِّل ملف تثبيت ويندوز عن طريق الخطأ وتُظهر رسالة «هناك مشكلة في ملف التطبيق». أصبح الهاتف الآن يُنزِّل ملف APK الخاص به فقط، ويُفحَص الملف قبل التثبيت. تبقى السجلات محفوظة."
+  "tr": "Telefonda «Güncelleme denetlenemedi / Failed to fetch» hatası düzeltildi: güncelleme denetimi artık telefonun kendisi tarafından yapılır. Bu sürümü telefona bir kez elle kurun (GitHub sürümler sayfasındaki APK); sonraki güncellemeler yine tek tuşla gelir. Kayıtlar korunur.",
+  "en": "Fixed «Could not check for updates / Failed to fetch» on phones: the update check is now done by the phone itself. Install this version on the phone once by hand (the APK on the GitHub releases page); later updates come with one tap again. Records are kept.",
+  "ar": "تم إصلاح خطأ «تعذّر التحقق من التحديثات / Failed to fetch» على الهاتف: أصبح الهاتف نفسه يتحقق من التحديثات. ثبّت هذا الإصدار على الهاتف مرة واحدة يدوياً (ملف APK في صفحة الإصدارات على GitHub)؛ بعد ذلك تصل التحديثات بنقرة واحدة. تبقى السجلات محفوظة."
 }
