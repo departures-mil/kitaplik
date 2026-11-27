@@ -24,7 +24,7 @@ jobs:
         with: { node-version: 22, cache: npm }
       - run: npm ci
       - name: Electron için sistem kitaplıkları
-        run: sudo apt-get update -q && sudo apt-get install -y -q xvfb libnss3 libgbm1 libasound2t64 libgtk-3-0 >/dev/null || sudo apt-get install -y -q xvfb libnss3 libgbm1 libgtk-3-0
+        run: (sudo apt-get update -q || true) && sudo apt-get install -y -q xvfb libnss3 libgbm1 libasound2t64 libgtk-3-0 >/dev/null || sudo apt-get install -y -q xvfb libnss3 libgbm1 libgtk-3-0
       - name: npm test (duman testi + köprü + Electron açılış testi, xvfb)
         run: npm test
       - name: Etiket = package.json sürümü
