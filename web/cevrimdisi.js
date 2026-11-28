@@ -267,7 +267,22 @@
     return d;
   }
 
+  // Yerel zekâ (masaüstü, paket kuruluysa): PaddleOCR PP-OCRv5 + Tesseract — eğik kapak fotoğrafları ve Arapça için çok daha doğru
+  async function ocrYerel(imgs, onStep) {
+    var per = [];
+    for (var i = 0; i < imgs.length; i++) {
+      onStep && onStep('read', i + 1, imgs.length);
+      var im = imgs[i], s = Math.min(1, 4000 / Math.max(im.naturalWidth, im.naturalHeight)), H = Math.round(im.naturalHeight * s) || 1000;
+      var r = await FCYZ.ocr(im, { langs: ['tr', 'en', 'ar'] });
+      per.push({ lines: (r.items || []).map(function (it) {
+        var ys = it.box.map(function (p) { return p[1]; }), top = Math.min.apply(null, ys), bot = Math.max.apply(null, ys);
+        return { text: it.text.replace(/\s+/g, ' ').trim(), h: (bot - top) * 0.75 / H * 1000, top: top, conf: it.score * 100 };
+      }).filter(function (l) { return l.text.replace(/[^\p{L}\p{N}]/gu, '').length >= 2; }).sort(function (a, b) { return a.top - b.top; }) });
+    }
+    return extract(per);
+  }
   async function ocr(imgs, onStep) {
+    if (window.FCYZ && await FCYZ.ready('ocr')) { try { onStep && onStep('load'); return await ocrYerel(imgs, onStep); } catch (e) { console.warn('yerel OCR', e); } }
     onStep && onStep('load');
     var E = await engine();
     var per = [];

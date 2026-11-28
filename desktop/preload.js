@@ -2,6 +2,7 @@
 // Eski güncelleme köprüsü (updateInfo / checkUpdate / restartToUpdate / windowControl / displayMode) kaldırıldı: ortak çekirdekte.
 const { contextBridge, ipcRenderer } = require('electron');
 require('./cekirdek/electron/fc-preload.js');
+require('./cekirdek/electron/yerel-zeka/fc-yerel-zeka-preload').expose(contextBridge, ipcRenderer); // window.fcYerelZeka: çevrimdışı OCR + çeviri
 
 let info = {};
 try { info = ipcRenderer.sendSync('kitaplik:info') || {}; } catch (e) { /* yoksay */ }

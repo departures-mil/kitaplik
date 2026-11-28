@@ -238,6 +238,10 @@
     Array.prototype.slice.call(grid.querySelectorAll(':scope > [data-kitaplik-kart]')).forEach(function (n) { n.remove(); });
     var kartlar = Array.prototype.slice.call(view.children).filter(function (n) { return n.classList && n.classList.contains('card'); });
     kartlar.push(arsivKart(), aiKart());
+    if (window.FCYZ && FCYZ.available()) { // çevrimdışı yapay zekâ: kitap fotoğrafından okuma (OCR) + çeviri paketleri
+      var lg = document.documentElement.lang || 'tr', yz = ui.card({ key: 'kitaplik-yerel-zeka', title: FCYZ.title({ lang: lg }), icon: 'cloud' });
+      yz.appendChild(FCYZ.card({ lang: lg, packs: ['ocr'] })); kartlar.push(yz);
+    }
     var look = grid.querySelector(':scope > [data-fc-card="look"]');
     var ref = look ? look.nextSibling : grid.firstChild;
     kartlar.forEach(function (k) { k.setAttribute('data-kitaplik-kart', ''); grid.insertBefore(k, ref); });

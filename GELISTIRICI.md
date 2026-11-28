@@ -83,3 +83,6 @@ Yerel APK: `ANDROID_TOOLS=<sdk> bash tools/apk.sh` (keys/ varsa imzalar).
   Asistan Agent artık çekirdekten (FC.agent; aynı fc.* kayıtları ve %APPDATA%/FalconCekirdek/agent) — fc-agent.js / agent-baslat.js /
   fc-agent-main.js kaldırıldı.
 - 2.15.1 (versionCode 21501): Android APK artık CI'da (secret'lardaki keystore ile) her sürümde derlenip android kanalına yayınlanıyor.
+
+- 2.16.0: Çevrimdışı yapay zekâ (masaüstü): ortak-cekirdek `web/yerel-zeka` kopyası `cekirdek/electron/yerel-zeka/` + `web/cekirdek/fc-yerel-zeka-ui.js`;
+  Ayarlar kartı (yalnız OCR paketi). `KitaplikOCR.ocr` paket kuruluysa PaddleOCR PP-OCRv5 + Tesseract (`ocrYerel`), yoksa eski Tesseract yolu. Telefonda değişiklik yok.

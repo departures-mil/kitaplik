@@ -226,6 +226,8 @@ ipcMain.handle('save-file', async (_e, name, text) => {
 });
 
 // ---- Wi‑Fi ile internetsiz eşitleme (aynı ağdaki telefonla) ----
+// Çevrimdışı yapay zekâ (OCR + çeviri) — paketler kullanıcı klasörüne bir kez iner (ortak çekirdek web/yerel-zeka)
+try { require('./cekirdek/electron/yerel-zeka/fc-yerel-zeka-main').install({ app, ipcMain }); } catch (e) { console.error('yerel-zeka', e); }
 const lan = require('./lan-server.js');
 const lanFile = () => path.join(app.getPath('userData'), 'wifi-esitleme.json');
 const lanPrefs = () => { try { return JSON.parse(fs.readFileSync(lanFile(), 'utf8')); } catch { return {}; } };
