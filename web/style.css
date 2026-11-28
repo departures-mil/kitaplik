@@ -218,3 +218,6 @@ body { background-image: radial-gradient(circle at 1px 1px, var(--bg-grid) 1px, 
 
 /* 2.15.2: kod / yapılandırma alanları Arapçada (RTL) da soldan sağa (firebaseConfig yansımasın) */
 #fbcfg, textarea[name=firebaseConfig], .fc-ob textarea, [data-fc-card] textarea.code { direction: ltr; text-align: left; unicode-bidi: isolate; }
+
+/* 2.16.2: dokunmatikte basılı/odak kalan çerçeveli düğme okunur kalsın (beyaz yazı + gri zemin olmasın) */
+:where(#view, #modal, .cam, .pf-cam) .btn.ghost:not([data-fc-card] *):is(:hover, :active, :focus) { background: var(--accent-soft); color: var(--accent); border-color: var(--accent-line); }

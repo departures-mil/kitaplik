@@ -1,5 +1,5 @@
 {
-  "tr": "Çevrimdışı yapay zekâ artık telefonda da: Ayarlar → «Çevrimdışı yapay zekâ» kartından bir kez indirilen paketle internet yokken kitap fotoğraflarından okuma çok daha doğru (PaddleOCR PP-OCRv5 + Tesseract; Türkçe, İngilizce, Arapça). Masaüstünde Türkçe harflerin (ı, İ, ş, ğ) okunması da iyileşti. Kayıtlar korunur.",
-  "en": "Offline AI now on phones too: with a pack downloaded once from Settings → «Offline AI», reading book photos without internet is much more accurate (PaddleOCR PP-OCRv5 + Tesseract; Turkish, English, Arabic). Reading of Turkish letters (ı, İ, ş, ğ) also improved on desktop. Records are kept.",
-  "ar": "الذكاء الاصطناعي دون اتصال أصبح على الهاتف أيضاً: مع حزمة تُنزَّل مرة واحدة من الإعدادات ← «الذكاء الاصطناعي دون اتصال» تصبح قراءة صور الكتب دون إنترنت أدق بكثير (PaddleOCR PP-OCRv5 + Tesseract؛ التركية والإنجليزية والعربية). وتحسّنت أيضاً قراءة الحروف التركية (ı وİ وş وğ) على الحاسوب. تبقى السجلات محفوظة."
+  "tr": "Telefonda fotoğraf çekme düzeltildi: «Fotoğraf çek» düğmeleri (fotoğraftan hızlı kayıt ve kapak görseli) artık kamerayı açıyor. İlk kullanımda kamera izni istenir; izin verilmezse galeri açılır. Dokunulan düğmenin soluk görünmesi de giderildi. Kayıtlar korunur.",
+  "en": "Taking photos on the phone is fixed: the «Take photo» buttons (quick add from photos and cover image) now open the camera. Camera permission is asked on first use; if it is refused, the gallery opens instead. Tapped buttons no longer look faded. Records are kept.",
+  "ar": "تم إصلاح التقاط الصور على الهاتف: أزرار «التقط صورة» (الإضافة السريعة من الصور وصورة الغلاف) تفتح الكاميرا الآن. يُطلب إذن الكاميرا عند أول استخدام، وإن رُفض يُفتح المعرض بدلاً منها. كما لم تعد الأزرار تبدو باهتة بعد لمسها. السجلات محفوظة."
 }
