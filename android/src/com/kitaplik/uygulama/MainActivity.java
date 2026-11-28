@@ -46,11 +46,27 @@ public class MainActivity extends Activity {
     private static final int REQ_FILE = 10;
     private static final int REQ_NOTIF = 11;
     private static final int REQ_CAM = 12;
+    private static final int REQ_CAM_FILE = 13;
+    /** Kamera izni beklenirken açılacak seçici: "cam" = doğrudan kamera, "chooser" = galeri + kamera. */
+    private String pendingPick = null;
+    private boolean pendingImage = false;
     private android.webkit.PermissionRequest camReq = null;
 
     @Override
     public void onRequestPermissionsResult(int req, String[] perms, int[] res) {
         super.onRequestPermissionsResult(req, perms, res);
+        if (req == REQ_CAM_FILE) {
+            String what = pendingPick;
+            pendingPick = null;
+            if (fileCallback == null || what == null) return;
+            boolean ok = res.length > 0 && res[0] == android.content.pm.PackageManager.PERMISSION_GRANTED;
+            if (ok && "cam".equals(what)) launchCamera();
+            else {
+                if (!ok) camDeniedToast();
+                launchChooser(pendingImage);
+            }
+            return;
+        }
         if (req == REQ_CAM && camReq != null) {
             if (res.length > 0 && res[0] == android.content.pm.PackageManager.PERMISSION_GRANTED) camReq.grant(new String[]{android.webkit.PermissionRequest.RESOURCE_VIDEO_CAPTURE});
             else camReq.deny();
@@ -145,32 +161,71 @@ public class MainActivity extends Activity {
                 cameraUri = null;
                 boolean image = false;
                 for (String t : params.getAcceptTypes()) if (t != null && t.startsWith("image")) image = true;
-                try {
-                    if (image && params.isCaptureEnabled()) {
-                        Intent cam = cameraIntent();
-                        startActivityForResult(cam, REQ_FILE);
-                        return true;
-                    }
-                    Intent pick = new Intent(Intent.ACTION_GET_CONTENT);
-                    pick.addCategory(Intent.CATEGORY_OPENABLE);
-                    pick.setType(image ? "image/*" : "*/*");
-                    Intent chooser = Intent.createChooser(pick, image ? "Kapak görseli" : "Yedek dosyasını seç");
-                    if (image) {
-                        Intent cam = cameraIntent();
-                        chooser.putExtra(Intent.EXTRA_INITIAL_INTENTS, new Intent[]{cam});
-                    }
-                    startActivityForResult(chooser, REQ_FILE);
+                pendingImage = image;
+                // Manifestte CAMERA izni olduğu için, izin verilmeden kamera uygulaması açılırsa Android
+                // SecurityException atar ve hiçbir şey olmaz (2.16.1'e kadarki hata). Önce izni iste.
+                boolean wantCam = image && params.isCaptureEnabled();
+                if (image && !camGranted()) {
+                    pendingPick = wantCam ? "cam" : "chooser";
+                    requestPermissions(new String[]{android.Manifest.permission.CAMERA}, REQ_CAM_FILE);
                     return true;
-                } catch (Exception e) {
-                    fileCallback = null;
-                    return false;
                 }
+                if (wantCam) launchCamera(); else launchChooser(image);
+                return true;
             }
         });
 
         if (state != null) web.restoreState(state);
         else web.loadUrl("https://" + HOST + "/index.html");
 
+    }
+
+    private void camDeniedToast() {
+        String l = java.util.Locale.getDefault().getLanguage();
+        String m = "ar".equals(l) ? "لم يُمنح إذن الكاميرا. يمكنك منحه من إعدادات الهاتف ← التطبيقات ← Kitaplık ← الأذونات."
+                : "tr".equals(l) ? "Kamera izni verilmedi. Telefon Ayarları → Uygulamalar → Kitaplık → İzinler'den açabilirsiniz."
+                : "Camera permission was not granted. You can allow it in phone Settings → Apps → Kitaplık → Permissions.";
+        android.widget.Toast.makeText(this, m, android.widget.Toast.LENGTH_LONG).show();
+    }
+
+    private boolean camGranted() {
+        return checkSelfPermission(android.Manifest.permission.CAMERA) == android.content.pm.PackageManager.PERMISSION_GRANTED;
+    }
+
+    /** Doğrudan kamera; açılamazsa galeri seçicisine düşer. */
+    private void launchCamera() {
+        if (fileCallback == null) return;
+        try {
+            startActivityForResult(cameraIntent(), REQ_FILE);
+        } catch (Exception e) {
+            dropCameraUri();
+            launchChooser(true);
+        }
+    }
+
+    /** Galeri / dosya seçici; görselde kamera izni varsa kamera da seçenek olarak eklenir. */
+    private void launchChooser(boolean image) {
+        if (fileCallback == null) return;
+        try {
+            Intent pick = new Intent(Intent.ACTION_GET_CONTENT);
+            pick.addCategory(Intent.CATEGORY_OPENABLE);
+            pick.setType(image ? "image/*" : "*/*");
+            Intent chooser = Intent.createChooser(pick, image ? "Görsel seç" : "Yedek dosyasını seç");
+            if (image && camGranted()) chooser.putExtra(Intent.EXTRA_INITIAL_INTENTS, new Intent[]{cameraIntent()});
+            startActivityForResult(chooser, REQ_FILE);
+        } catch (Exception e) {
+            dropCameraUri();
+            ValueCallback<Uri[]> cb = fileCallback;
+            fileCallback = null;
+            if (cb != null) cb.onReceiveValue(null);
+        }
+    }
+
+    private void dropCameraUri() {
+        if (cameraUri != null) {
+            try { getContentResolver().delete(cameraUri, null, null); } catch (Exception ignored) { }
+            cameraUri = null;
+        }
     }
 
     private Intent cameraIntent() {

@@ -86,3 +86,6 @@ Yerel APK: `ANDROID_TOOLS=<sdk> bash tools/apk.sh` (keys/ varsa imzalar).
 
 - 2.16.0: Çevrimdışı yapay zekâ (masaüstü): ortak-cekirdek `web/yerel-zeka` kopyası `cekirdek/electron/yerel-zeka/` + `web/cekirdek/fc-yerel-zeka-ui.js`;
   Ayarlar kartı (yalnız OCR paketi). `KitaplikOCR.ocr` paket kuruluysa PaddleOCR PP-OCRv5 + Tesseract (`ocrYerel`), yoksa eski Tesseract yolu. Telefonda değişiklik yok.
+- 2.16.2 (versionCode 21602): Telefonda kamera düzeltmesi. Manifestte CAMERA izni olduğundan, izin verilmeden ACTION_IMAGE_CAPTURE
+  SecurityException atıyordu (onShowFileChooser sessizce false dönüyordu) → hiçbir fotoğraf düğmesi çalışmıyordu. Artık önce izin
+  istenir (REQ_CAM_FILE), reddedilirse uyarı + galeri; kamera açılamazsa galeriye düşer. style.css: dokunmatikte .btn.ghost basılı görünümü.
